@@ -19,7 +19,7 @@ import javax.swing.JPanel;
 public class LogSymptom {
 	
 	// TODO: figure out how to make client lol
-	static int client; 
+	static int client = 1;
 	static String location;
 	static String symptom;
 	static java.sql.Date date;
@@ -43,8 +43,8 @@ public class LogSymptom {
 			
 			String query = "INSERT INTO symptoms_log (client_id, location_id, symptom_type_id, date, severity, length, final_score) "
 					+ "VALUES ("
-					+ "'0'," // tester client value
-					+ "'" + getLocationID() + "', "
+					+ "'1'," // tester client value
+					+ "'" + getLocationID(location) + "', "
 					+ "'" + getSymptomTypeID() + "', "
 					+ "'" + date + "', " 
 					+ "'" + severity + "', " 
@@ -68,7 +68,7 @@ public class LogSymptom {
 	}
 	
 	// Get Primary Key for Location
-	public static String getLocationID() {
+	public static String getLocationID(String loc) {
 		RegAndConn raC = new RegAndConn();
 		raC.connectDB();
 		
@@ -82,7 +82,7 @@ public class LogSymptom {
 			
 			String query = "SELECT location_id FROM symptom_locations " 
 					+ "WHERE location = " 
-					+ "'" + location + "'";
+					+ "'" + loc + "'";
 			System.out.println(query);
 			
 			// execute query

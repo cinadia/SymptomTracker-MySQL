@@ -130,5 +130,14 @@ public class HomePage {
 		JLabel lblNewLabel_5 = new JLabel("GREETING");
 		lblNewLabel_5.setBounds(304, 11, 101, 14);
 		frame.getContentPane().add(lblNewLabel_5);
+		
+		JButton createStatsButt = new JButton("Create Log Charts");
+		createStatsButt.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				MakeStats.newMakeStatsWindow();
+			}
+		});
+		createStatsButt.setBounds(10, 203, 162, 23);
+		frame.getContentPane().add(createStatsButt);
 	}
 }

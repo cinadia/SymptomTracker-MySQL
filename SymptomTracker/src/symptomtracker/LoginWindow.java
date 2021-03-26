@@ -21,6 +21,7 @@ public class LoginWindow {
 	private static JFrame frame;
 	private JTextField userField;
 	private JPasswordField passwordField;
+	public static int userID;
 
 	/**
 	 * Launch the application.
@@ -104,7 +105,7 @@ public class LoginWindow {
 		});
 		showPassBox.setBounds(283, 135, 128, 23);
 		frame.getContentPane().add(showPassBox);
-		
+		 
 		JButton loginButton = new JButton("Login");
 		loginButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -116,6 +117,7 @@ public class LoginWindow {
 						HomePage home = new HomePage();
 						home.newHomePage();
 						frame.dispose();
+						
 					}
 				}
 			}
@@ -148,16 +150,18 @@ public class LoginWindow {
 			stat = raC.getConn().createStatement();
 			
 			// execute query
-			String query = "SELECT client_pass FROM clients " 
+			String query = "SELECT client_pass, client_id FROM clients " 
 					+ "WHERE client_user = "
 					+ "'" + user + "'";
 			System.out.println(query);
-			
+	        
 			rs = stat.executeQuery(query);
 			
 			rs.next();
 		    String actualPass = rs.getString("client_pass");
 			if (actualPass.equals(attemptPass)) {
+				userID = rs.getInt("client_id");
+				System.out.println(userID);
 				return true;
 			} else {
 				return false;
