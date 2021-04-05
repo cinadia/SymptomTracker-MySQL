@@ -1,19 +1,26 @@
 package symptomtracker;
 
+import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import java.awt.GridLayout;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.time.LocalTime;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+
+import org.jfree.chart.ChartPanel;
+
 import javax.swing.JPanel;
 
 public class HomePage {
 
 	private JFrame frame;
+	private boolean editSymptoms;
 
 	/**
 	 * Launch the application.
@@ -44,9 +51,8 @@ public class HomePage {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 500, 500);
+		frame.setBounds(100, 100, 500, 311);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//TODO: need set layout to null initially??
 		frame.getContentPane().setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("MENU");
@@ -67,69 +73,53 @@ public class HomePage {
 		JButton btnNewButton_1 = new JButton("Log Home Remedy");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				LogHomeRemedy hr = new LogHomeRemedy();
+				LogRemWindow.newLogRem();
 			}
 		});
 		btnNewButton_1.setBounds(10, 70, 162, 23);
 		frame.getContentPane().add(btnNewButton_1);
 		
-		JButton btnNewButton_2 = new JButton("Log Professional Remedy");
+		JButton btnNewButton_2 = new JButton("View/Edit Remedies");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				LogProfRemedy pr = new LogProfRemedy();
+				editSymptoms = false;
+				ViewHomeRems.newViewHomeRems();
+				
 			}
 		});
-		btnNewButton_2.setBounds(10, 104, 162, 23);
+		btnNewButton_2.setBounds(10, 138, 162, 23);
 		frame.getContentPane().add(btnNewButton_2);
 		
 		JButton btnNewButton_3 = new JButton("Profile");
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Client ls = new Client();
+				ProfileWindow.newProfileWindow();
 			}
 		});
-		btnNewButton_3.setBounds(10, 137, 162, 23);
+		btnNewButton_3.setBounds(10, 104, 162, 23);
 		frame.getContentPane().add(btnNewButton_3);
 		
-		JButton btnNewButton_4 = new JButton("Edit Logs");
-		btnNewButton_4.setBounds(10, 169, 162, 23);
-		frame.getContentPane().add(btnNewButton_4);
-		
 		JPanel panel = new JPanel();
-		panel.setBounds(201, 52, 256, 75);
+		panel.setBounds(201, 52, 244, 174);
+		panel.setLayout(new java.awt.BorderLayout());
+		
+		ChartPanel CP = new ChartPanel(PieChart.PieChart(Stats.getTodaysLocations()));
+		panel.add(CP,BorderLayout.CENTER);
+		panel.validate();
+		
 		frame.getContentPane().add(panel);
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(201, 161, 256, 64);
-		frame.getContentPane().add(panel_1);
-		
-		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(201, 260, 256, 70);
-		frame.getContentPane().add(panel_2);
-		
-		JLabel lblNewLabel_1 = new JLabel("Today");
-		lblNewLabel_1.setBounds(203, 36, 48, 14);
-		frame.getContentPane().add(lblNewLabel_1);
-		
-		JLabel lblNewLabel_2 = new JLabel("This Week");
-		lblNewLabel_2.setBounds(201, 141, 96, 14);
-		frame.getContentPane().add(lblNewLabel_2);
-		
-		JPanel panel_3 = new JPanel();
-		panel_3.setBounds(200, 359, 257, 70);
-		frame.getContentPane().add(panel_3);
-		
-		JLabel lblNewLabel_3 = new JLabel("This Month");
-		lblNewLabel_3.setBounds(201, 235, 96, 14);
-		frame.getContentPane().add(lblNewLabel_3);
-		
-		JLabel lblNewLabel_4 = new JLabel("This Year");
-		lblNewLabel_4.setBounds(201, 341, 48, 14);
-		frame.getContentPane().add(lblNewLabel_4);
-		
 		JLabel lblNewLabel_5 = new JLabel("GREETING");
-		lblNewLabel_5.setBounds(304, 11, 101, 14);
+		lblNewLabel_5.setBounds(263, 11, 101, 14);
+		if (LocalTime.now().isBefore(LocalTime.parse("12:00"))) {
+			lblNewLabel_5.setText("Good Morning!");
+		} else if (LocalTime.now().isAfter(LocalTime.parse("12:00")) && LocalTime.now().isBefore(LocalTime.parse("17:00"))) {
+			lblNewLabel_5.setText("Good Afternoon!");
+		} else {
+			lblNewLabel_5.setText("Good Evening!");
+		}
 		frame.getContentPane().add(lblNewLabel_5);
+		
 		
 		JButton createStatsButt = new JButton("Create Log Charts");
 		createStatsButt.addActionListener(new ActionListener() {
@@ -137,7 +127,28 @@ public class HomePage {
 				MakeStats.newMakeStatsWindow();
 			}
 		});
-		createStatsButt.setBounds(10, 203, 162, 23);
+		createStatsButt.setBounds(10, 205, 162, 23);
 		frame.getContentPane().add(createStatsButt);
+		
+		JButton btnNewButton_5 = new JButton("View/Edit Symptom Logs");
+		btnNewButton_5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				editSymptoms = true;
+				ViewSymLogs.newViewSymLogs();
+			}
+		});
+		btnNewButton_5.setBounds(10, 171, 162, 23);
+		frame.getContentPane().add(btnNewButton_5);
+		
+		JButton btnStatRefresh = new JButton("Refresh Stats");
+		btnStatRefresh.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ChartPanel CP = new ChartPanel(PieChart.PieChart(Stats.getTodaysLocations()));
+				panel.add(CP,BorderLayout.CENTER);
+				panel.validate();
+			}
+		});
+		btnStatRefresh.setBounds(286, 237, 155, 23);
+		frame.getContentPane().add(btnStatRefresh);
 	}
 }

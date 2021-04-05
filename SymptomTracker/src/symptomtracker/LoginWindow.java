@@ -21,7 +21,6 @@ public class LoginWindow {
 	private static JFrame frame;
 	private JTextField userField;
 	private JPasswordField passwordField;
-	public static int userID;
 
 	/**
 	 * Launch the application.
@@ -81,8 +80,7 @@ public class LoginWindow {
 						if (!checkPass(userField.getText(), passwordField.getText())) {
 							JOptionPane.showMessageDialog(frame, "Incorrect password.");
 						} else {
-							HomePage home = new HomePage();
-							home.newHomePage();
+							HomePage.newHomePage();
 							frame.dispose();
 						}
 					}
@@ -114,8 +112,7 @@ public class LoginWindow {
 					if (checkPass(userField.getText(), passwordField.getText()) == false) {
 						JOptionPane.showMessageDialog(frame, "Incorrect username or password.");
 					} else {
-						HomePage home = new HomePage();
-						home.newHomePage();
+						HomePage.newHomePage();
 						frame.dispose();
 						
 					}
@@ -131,11 +128,11 @@ public class LoginWindow {
 				NewClientWindow.newNewClientWindow();
 			}
 		});
-		btnNewButton.setBounds(163, 231, 145, 23);
+		btnNewButton.setBounds(158, 231, 188, 23);
 		frame.getContentPane().add(btnNewButton);
 		
 		JLabel lblNewLabel = new JLabel("Don't have an account?");
-		lblNewLabel.setBounds(23, 235, 148, 14);
+		lblNewLabel.setBounds(10, 235, 148, 14);
 		frame.getContentPane().add(lblNewLabel);
 	}
 	
@@ -160,8 +157,8 @@ public class LoginWindow {
 			rs.next();
 		    String actualPass = rs.getString("client_pass");
 			if (actualPass.equals(attemptPass)) {
-				userID = rs.getInt("client_id");
-				System.out.println(userID);
+				SymptomTracker.setUserID(rs.getInt("client_id"));
+				System.out.println(SymptomTracker.getUserID());
 				return true;
 			} else {
 				return false;

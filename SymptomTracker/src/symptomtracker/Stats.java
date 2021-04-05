@@ -14,9 +14,9 @@ public class Stats {
 
 	// Returns distinct list of all locations
 	// that user has logged today.
-	public static LinkedList<Integer> getTodaysLocations() {
-		LinkedList<Integer> locs = new LinkedList<>();
-		
+	public static HashMap<String, Integer> getTodaysLocations() {
+		HashMap<String, Integer> locScore = new HashMap<>();
+				
 		RegAndConn raC = new RegAndConn();
 		raC.connectDB();
 		
@@ -26,22 +26,25 @@ public class Stats {
 		try {
 			stat = raC.getConn().createStatement();
 			
-			String query = "SELECT DISTINCT location_id FROM symptoms_log "
-					+ "WHERE date = CURDATE()";
+			String query = "SELECT SUM(final_score), date, location FROM symptoms_log log "
+					+ "JOIN symptom_locations loc ON loc.location_id = log.location_id "
+					+ "WHERE client_id = " + SymptomTracker.getUserID()
+					+ " AND date = CURDATE() "
+					+ "GROUP BY location";
 					
 			rs = stat.executeQuery(query);
 			
 			while (rs.next()) {
-				locs.add(rs.getInt("location_id"));
+				locScore.put(rs.getString("location"), rs.getInt("SUM(final_score)"));
 			}
-			System.out.print("location ids for today");
-			System.out.println(locs);
+			System.out.print("location and scores for today");
+			System.out.println(locScore);
 			
-			return locs;
+			return locScore;
 			
 		} catch (Exception e){
 			e.printStackTrace();
-			return locs;
+			return locScore;
 		} finally {
 			try {
 				// close db connection
@@ -71,8 +74,8 @@ public class Stats {
 			stat = raC.getConn().createStatement();
 			
 			String query = "SELECT SUM(final_score), date FROM symptoms_log "
-					+ "WHERE client_id = '" + "0" //LoginWindow.userID (tester 0 id)
-					+ "' AND location_id = '" + LogSymptom.getLocationID(location_id) + "'"
+					+ "WHERE client_id = '" + SymptomTracker.getUserID() 
+					+ "' AND location_id = '" + SymptomTracker.getLocationID(location_id) + "'"
 					+ " GROUP BY date HAVING date BETWEEN "
 					+ "'" + start + "'" + " AND " + "'" + end + "'";
 			System.out.println(query);

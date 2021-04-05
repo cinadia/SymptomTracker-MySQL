@@ -4,6 +4,8 @@ package symptomtracker;
 public class Main {
 	
 	public static void main(String[] args) {
+		//EditLogs.newEditLogs();
+		//MakeTable.getLogs();
 		LoginWindow.newLoginWindow();
 		//HomePage.newHomePage();
 		//MakeStats.newMakeStatsWindow();

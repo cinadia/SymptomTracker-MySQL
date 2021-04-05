@@ -18,6 +18,7 @@ public class MakeStats {
 	private static String location;
 	private static java.sql.Date startDate;
 	private static java.sql.Date endDate;
+	
 
 	/**
 	 * Launch the application.
@@ -97,7 +98,7 @@ public class MakeStats {
 		chooseLocationLabel.setBounds(10, 138, 90, 14);
 		frame.getContentPane().add(chooseLocationLabel);
 		
-		JComboBox chooseLocation = new JComboBox(Getters.getSymptomLocations());
+		JComboBox chooseLocation = new JComboBox(SymptomTracker.getSymptomLocations());
 		chooseLocation.setSelectedItem(null);
 		chooseLocation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {

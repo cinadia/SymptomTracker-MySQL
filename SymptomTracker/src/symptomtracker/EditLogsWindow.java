@@ -13,23 +13,27 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 import com.toedter.calendar.JDateChooser;
 
-public class LogSymWindow {
+public class EditLogsWindow {
 
 	private JFrame frame;
 	private JTextField textField;
+	private static int symptomInstance;
+
 
 	/**
 	 * Launch the application.
 	 */
-	public static void newLogSymWindow() {
+	public static void newEditLogsWindow() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					LogSymWindow window = new LogSymWindow();
+					EditLogsWindow window = new EditLogsWindow();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -41,7 +45,7 @@ public class LogSymWindow {
 	/**
 	 * Create the application.
 	 */
-	public LogSymWindow() {
+	public EditLogsWindow() {
 		initialize();
 	}
 
@@ -82,7 +86,7 @@ public class LogSymWindow {
 		// Symptom Location dropdown 
 		
 		JComboBox comboBox = new JComboBox(SymptomTracker.getSymptomLocations());
-		comboBox.setSelectedItem(null);
+		comboBox.setSelectedItem(SymptomTracker.getSymLocFromInstance(symptomInstance));
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				JComboBox cb = (JComboBox)arg0.getSource();
@@ -95,7 +99,7 @@ public class LogSymWindow {
 		
 		// Symptom Type dropdown
 		JComboBox comboBox_1 = new JComboBox(SymptomTracker.getSymptoms());
-		comboBox_1.setSelectedItem(null);
+		comboBox_1.setSelectedItem(SymptomTracker.getSymTypeFromInstance(symptomInstance));
 		comboBox_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				JComboBox cb = (JComboBox)arg0.getSource();
@@ -197,9 +201,36 @@ public class LogSymWindow {
 	    group.add(rdbtnNewRadioButton_2);
 	    group.add(rdbtnNewRadioButton_3);
 	    group.add(rdbtnNewRadioButton_4);
-		
+	    
+	    // Set default radio button
+	    int defaultScore = SymptomTracker.getSeverityFromInstance(symptomInstance);
+	    
+	    if (defaultScore == 1) {
+	    	rdbtnNewRadioButton.setSelected(true);
+	    }
+	    else if (defaultScore == 2) {
+	    	rdbtnNewRadioButton_1.setSelected(true);
+	    }
+	    else if (defaultScore == 3) {
+	    	rdbtnNewRadioButton_2.setSelected(true);
+	    }
+	    else if (defaultScore == 4) {
+	    	rdbtnNewRadioButton_3.setSelected(true);
+	    }
+	    else if (defaultScore == 5) {
+	    	rdbtnNewRadioButton_4.setSelected(true);
+	    }
+	    
 	    // Duration text field
-		textField = new JTextField();
+		textField = new JTextField(SymptomTracker.getDurationFromInstance(symptomInstance));
+    	int sev = SymptomTracker.getSeverity();
+    	System.out.println("severity " + sev);
+    	System.out.println("duration " + SymptomTracker.getLength());
+    	if (sev != -1) {
+    		int score = sev*SymptomTracker.getLength();
+    		lblNewLabel_6.setText(Integer.toString(score));
+			SymptomTracker.setScore(score);
+    	}
 		textField.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			    String text = textField.getText();
@@ -207,11 +238,6 @@ public class LogSymWindow {
 			    	Integer dur = Integer.parseInt(text);
 			    	SymptomTracker.setLength(dur);
 			    	int sev = SymptomTracker.getSeverity();
-			    	if (sev != -1) {
-			    		int score = sev*dur;
-			    		lblNewLabel_6.setText(Integer.toString(score));
-						SymptomTracker.setScore(score);
-			    	}
 			     } else {
 			    	 JOptionPane.showMessageDialog(frame, "Whoops! Positive numbers only!");
 			    	 }
@@ -225,17 +251,31 @@ public class LogSymWindow {
 		JButton btnNewButton = new JButton("SAVE");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				SymptomTracker.runLogSymptom();
+				SymptomTracker.updateSymInstance(symptomInstance);
 				System.out.println("SAVE button was clicked.");
 				System.out.println(SymptomTracker.score);
+				JOptionPane.showMessageDialog(frame, "Updates saved! Please refresh to see changes.");
+				
 				frame.dispose();
 			}
 		});
 		btnNewButton.setBounds(174, 166, 89, 23);
 		frame.getContentPane().add(btnNewButton);
 		
+		// Date
 		JDateChooser dateChooser = new JDateChooser();
-		dateChooser.setBounds(125, 61, 115, 20);
+		
+		// Set default date
+		java.util.Date d = SymptomTracker.getSymDateFromInstance(symptomInstance);
+		java.util.Date defaultDate;
+		try {
+			defaultDate = new SimpleDateFormat("yyyy-MM-dd").parse(d.toString());
+			dateChooser.setDate(defaultDate);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		dateChooser.setBounds(125, 61, 154, 22);
 		dateChooser.getDateEditor().addPropertyChangeListener(
 			    new PropertyChangeListener() {
 			        @Override
@@ -260,5 +300,10 @@ public class LogSymWindow {
 	   } catch (NumberFormatException e) {
 	      return false;
 	   }
+	}
+	
+	public static void setSymptomInstance(int ins) {
+		symptomInstance = ins;
+		System.out.println("symptom instance: " + symptomInstance);
 	}
 }

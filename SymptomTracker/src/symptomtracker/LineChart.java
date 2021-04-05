@@ -13,6 +13,9 @@ import org.jfree.ui.ApplicationFrame;
 
 public class LineChart extends ApplicationFrame {
 
+	// LineChart object requires dictionary of the 
+	// scores corresponding with each date, 
+	// and the location the data corresponds with
 	public LineChart(HashMap<java.sql.Date, Integer> dateScores, String location) {
 		super(location + " Stats");
 		JFreeChart lineChart = ChartFactory.createLineChart(
@@ -26,6 +29,7 @@ public class LineChart extends ApplicationFrame {
 	    setContentPane(chartPanel);
 	}
 	
+	// Make dataset for line chart
 	private DefaultCategoryDataset createDataSet(HashMap<java.sql.Date, Integer> dateScores) {
 	      DefaultCategoryDataset dataset = new DefaultCategoryDataset( );
 	      Iterator it = dateScores.entrySet().iterator();
@@ -39,18 +43,5 @@ public class LineChart extends ApplicationFrame {
 	
 	public void windowClosing(WindowEvent e) {
 		this.dispose();
-	}
-	public static void main( String[ ] args ) {
-		/*
-		String str ="2021-01-01";  
-		Date start = Date.valueOf(str);  
-		 
-		String str2 ="2021-03-25";  
-		Date end = Date.valueOf(str2); 
-		    
-		LineChart chart = new LineChart(Stats.getScoresDates(start, end, "jaw"), "jaw");
-		
-		chart.pack( );
-		chart.setVisible( true ); */
 	}
 }
