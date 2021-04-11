@@ -6,7 +6,8 @@ public class Main {
 	public static void main(String[] args) {
 		//EditLogs.newEditLogs();
 		//MakeTable.getLogs();
-		LoginWindow.newLoginWindow();
+		LoginWindow lw = new LoginWindow();
+		//LoginWindow.newLoginWindow();
 		//HomePage.newHomePage();
 		//MakeStats.newMakeStatsWindow();
 		//Stats.getTodaysLocations();

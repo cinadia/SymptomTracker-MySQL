@@ -20,15 +20,18 @@ public class ViewSymLogs {
 	private JFrame frame;
 	private JTable table;
 	private DefaultTableModel tableModel;
-	private static int EDITCOL = 6;
-	private static int SYMTABLE = 0;
+	private static int EDITCOL = 6; // The table column holding the Edit buttons
 	
-
+	// The integer ID for the current type of table - symptom table
+	private static int SYMTABLE = 0; 
+	
+	MakeTable mt = new MakeTable();
 
 	/**
-	 * Launch the application.
+	 * Launch the ViewSymLogs application, where
+	 * user views previously logged symptoms.
 	 */
-	public static void newViewSymLogs() {
+	public void newViewSymLogs() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -53,27 +56,33 @@ public class ViewSymLogs {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
+		frame.setBounds(100, 100, 617, 300);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
-		table = new JTable(MakeTable.newTable(SYMTABLE));
+		// Make table
+		table = new JTable(mt.newTableModel(SYMTABLE));
+		// Add to scrollpane
 		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.setBounds(0, 22, 428, 243);
+		scrollPane.setBounds(0, 22, 595, 243);
 		
+		// Remove first column of table that contains symptom_instance_id
 		TableColumnModel tcm = table.getColumnModel();
 		tcm.removeColumn(tcm.getColumn(0));
         frame.getContentPane().setLayout(null);
 		
+        // Set new CellRenderer for Edit column
         table.getColumn("Edit").setCellRenderer(new ButtonColumn(table, EDITCOL, SYMTABLE));
 		frame.getContentPane().add(scrollPane);
 		
+		// Refresh button
 		JButton btnRefresh = new JButton("Refresh");
-		btnRefresh.setBounds(328,0,110,23);
+		btnRefresh.setBounds(485,0,110,23);
 		btnRefresh.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				table.setModel(MakeTable.newTable(SYMTABLE));
+				// Set new table model upon refresh
+				table.setModel(mt.newTableModel(SYMTABLE));
 				
-				TableColumnModel tcm = table.getColumnModel();
+				//TableColumnModel tcm = table.getColumnModel();
 				tcm.removeColumn(tcm.getColumn(0));
 				
 				table.getColumn("Edit").setCellRenderer(new ButtonColumn(table, EDITCOL, SYMTABLE));

@@ -12,9 +12,15 @@ import org.jfree.data.category.DefaultCategoryDataset;
 
 public class Stats {
 
-	// Returns distinct list of all locations
-	// that user has logged today.
-	public static HashMap<String, Integer> getTodaysLocations() {
+	SymptomTracker st = new SymptomTracker();
+	
+	/** 
+	 * Returns a distinct HashMap of all locations 
+	 * that user has logged today and their 
+	 * corresponding scores
+	 * @return HashMap<String, Integer> of locations to scores
+	 */
+	public HashMap<String, Integer> getTodaysLocations() {
 		HashMap<String, Integer> locScore = new HashMap<>();
 				
 		RegAndConn raC = new RegAndConn();
@@ -28,7 +34,7 @@ public class Stats {
 			
 			String query = "SELECT SUM(final_score), date, location FROM symptoms_log log "
 					+ "JOIN symptom_locations loc ON loc.location_id = log.location_id "
-					+ "WHERE client_id = " + SymptomTracker.getUserID()
+					+ "WHERE client_id = " + st.getUserID()
 					+ " AND date = CURDATE() "
 					+ "GROUP BY location";
 					
@@ -56,12 +62,15 @@ public class Stats {
 	}
 	 
 	
-	/* Gets scores of specific location 
-	 * from start date to end date. 
-	 * Scores returned are the sum of 
-	 * all the scores logged in the given date. 
+	/** 
+	 * Get scores of specific location from the 
+	 * given start date to end date. 
+	 * @param start start date provided
+	 * @param end end date provided
+	 * @param location_id the location whose scores are to be retrieved
+	 * @return HashMap<java.sql.Date, Integer> of date to score
 	 */
-	public static HashMap getScoresDates(java.sql.Date start, java.sql.Date end, String location_id) {
+	public HashMap<java.sql.Date, Integer> getScoresDates(java.sql.Date start, java.sql.Date end, String location_id) {
 		RegAndConn raC = new RegAndConn();
 		raC.connectDB();
 		
@@ -74,8 +83,8 @@ public class Stats {
 			stat = raC.getConn().createStatement();
 			
 			String query = "SELECT SUM(final_score), date FROM symptoms_log "
-					+ "WHERE client_id = '" + SymptomTracker.getUserID() 
-					+ "' AND location_id = '" + SymptomTracker.getLocationID(location_id) + "'"
+					+ "WHERE client_id = '" + st.getUserID() 
+					+ "' AND location_id = '" + st.getLocationID(location_id) + "'"
 					+ " GROUP BY date HAVING date BETWEEN "
 					+ "'" + start + "'" + " AND " + "'" + end + "'";
 			System.out.println(query);

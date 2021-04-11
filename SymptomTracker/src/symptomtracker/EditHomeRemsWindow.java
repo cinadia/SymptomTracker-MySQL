@@ -16,19 +16,43 @@ import com.toedter.calendar.JDateChooser;
 import javax.swing.JButton;
 
 public class EditHomeRemsWindow {
-
+	SymptomTracker st = new SymptomTracker();
 	private JFrame frame;
-	private static int hrInstance; 
+	
+	private static int hrInstance; // ID for the given home remedy log
+	
+	
+//	public void newEditHomeRemsWindow() {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					initialize();
+//					EditHomeRemsWindow window = new EditHomeRemsWindow();
+//					window.frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
+
+//	/**
+//	 * Create the application.
+//	 */
+//	public EditHomeRemsWindow() {
+//		initialize();
+//	}
 	
 	/**
-	 * Launch the application.
+	 * Constructor to launch the EditHomeRemsWindow application,
+	 * where user can edit previously logged Home Remedies.
 	 */
-	public static void newEditHomeRemsWindow() {
+	public EditHomeRemsWindow(int instance) {
+		hrInstance = instance;		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					EditHomeRemsWindow window = new EditHomeRemsWindow();
-					window.frame.setVisible(true);
+					initialize();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -37,62 +61,60 @@ public class EditHomeRemsWindow {
 	}
 
 	/**
-	 * Create the application.
-	 */
-	public EditHomeRemsWindow() {
-		initialize();
-	}
-
-	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Remedy");
-		lblNewLabel.setBounds(10, 11, 48, 14);
-		frame.getContentPane().add(lblNewLabel);
+		// Labels
+		JLabel lblRemedy = new JLabel("Remedy");
+		lblRemedy.setBounds(10, 11, 48, 14);
+		frame.getContentPane().add(lblRemedy);
 		
-		JLabel lblNewLabel_1 = new JLabel("For");
-		lblNewLabel_1.setBounds(10, 36, 48, 14);
-		frame.getContentPane().add(lblNewLabel_1);
+		JLabel lblLocation = new JLabel("For");
+		lblLocation.setBounds(10, 36, 48, 14);
+		frame.getContentPane().add(lblLocation);
 		
-		JLabel lblNewLabel_2 = new JLabel("Date");
-		lblNewLabel_2.setBounds(10, 61, 48, 14);
-		frame.getContentPane().add(lblNewLabel_2);
+		JLabel lblDate = new JLabel("Date");
+		lblDate.setBounds(10, 61, 48, 14);
+		frame.getContentPane().add(lblDate);
 		
-		JComboBox comboBox = new JComboBox(SymptomTracker.getSymptomLocations());
-		comboBox.setSelectedItem(SymptomTracker.getHRLocFromInstance(hrInstance));
-		comboBox.addActionListener(new ActionListener() {
+		// Location combo box
+		JComboBox cbLocation = new JComboBox(st.getSymptomLocations());
+		// TODO: remove print statement
+		System.out.println("sending instance " + hrInstance + " into getHRLoc method");
+		cbLocation.setSelectedItem(st.getHRLocFromInstance(hrInstance));
+		cbLocation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				JComboBox cb = (JComboBox)arg0.getSource();
 		        String location = (String)cb.getSelectedItem();
-				SymptomTracker.setLocation(location); 
+				st.setLocation(location); 
 			}
 		});
+		cbLocation.setBounds(68, 32, 110, 22);
+		frame.getContentPane().add(cbLocation);
 		
-		comboBox.setBounds(68, 32, 110, 22);
-		frame.getContentPane().add(comboBox);
-		
-		JComboBox comboBox_1 = new JComboBox(SymptomTracker.getHomeRems());
-		comboBox_1.setSelectedItem(SymptomTracker.getHomeRemFromInstance(hrInstance)); 
-		comboBox_1.addActionListener(new ActionListener() {
+		// 
+		JComboBox cbRemedy = new JComboBox(st.getHomeRems());
+		cbRemedy.setSelectedItem(st.getHomeRemFromInstance(hrInstance)); 
+		cbRemedy.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				JComboBox cb = (JComboBox)arg0.getSource();
 		        String location = (String)cb.getSelectedItem();
-				SymptomTracker.setHomeRem(location); 
+				st.setHomeRem(location); 
 			}
 		});
-		comboBox_1.setBounds(68, 7, 110, 22);
-		frame.getContentPane().add(comboBox_1);
+		cbRemedy.setBounds(68, 7, 110, 22);
+		frame.getContentPane().add(cbRemedy);
 		
+		// Date chooser
 		JDateChooser dateChooser = new JDateChooser(); 
 		
 		// Set default date
-		java.util.Date d = SymptomTracker.getHRDateFromInstance(hrInstance);
+		java.util.Date d = st.getHRDateFromInstance(hrInstance);
 		java.util.Date defaultDate;
 		try {
 			defaultDate = new SimpleDateFormat("yyyy-MM-dd").parse(d.toString());
@@ -100,37 +122,35 @@ public class EditHomeRemsWindow {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		
 		dateChooser.setBounds(68, 61, 110, 22);
 		dateChooser.getDateEditor().addPropertyChangeListener(
 			    new PropertyChangeListener() {
 			        @Override
 			        public void propertyChange(PropertyChangeEvent e) {
 			            if ("date".equals(e.getPropertyName())) {
+			            	// Set newly selected date
 			            	java.util.Date utilDate = (java.util.Date) e.getNewValue();
 			            	java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-			            	SymptomTracker.setDate(sqlDate);
+			            	st.setDate(sqlDate);
 			            }
 			        }
 			    });
 		frame.getContentPane().add(dateChooser);
 		
-		JButton btnNewButton = new JButton("Save");
-		btnNewButton.addActionListener(new ActionListener() {
+		// Save button, updates the current
+		// home remedy instance.
+		JButton btnSave = new JButton("Save");
+		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				SymptomTracker.updateHRInstance(hrInstance);
-				System.out.println("SAVE button was clicked.");
+				st.updateHRInstance(hrInstance);
 				JOptionPane.showMessageDialog(frame, "Updates saved! Please refresh to see changes.");
 				frame.dispose();
 			}
 		});
-		btnNewButton.setBounds(75, 112, 63, 22);
-		frame.getContentPane().add(btnNewButton);
+		btnSave.setBounds(75, 112, 63, 22);
+		frame.getContentPane().add(btnSave);
 		
-	}
-	
-	public static void setHRInstance(int ins) {
-		hrInstance = ins;
-		System.out.println("symptom instance: " + hrInstance);
+		frame.setVisible(true);
+		
 	}
 }

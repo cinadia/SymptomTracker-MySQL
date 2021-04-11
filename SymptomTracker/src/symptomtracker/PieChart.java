@@ -13,9 +13,14 @@ import org.jfree.ui.ApplicationFrame;
 
 public class PieChart {
 
-	// Pie chart requires a dictionary of today's 
-	// locations and their corresponding total scores
-	public static JFreeChart PieChart(HashMap<String, Integer> locScores) {
+	/** 
+	 * Creates new pie chart with HashMap of 
+	 * symptom locations and their
+	 * corresponding scores
+	 * @param locScores HashMap<String, Integer> of symptom locations to scores
+	 * @return the created pie chart (JFreeChart)
+	 */
+	public JFreeChart PieChart(HashMap<String, Integer> locScores) {
 		JFreeChart chart = ChartFactory.createPieChart(      
 		         "Today's Stats",   // chart title 
 		         createDataSet(locScores),          // data    
@@ -25,13 +30,22 @@ public class PieChart {
 		return chart;
 	}
 	
-	public static PieDataset createDataSet(HashMap<String, Integer> locScores) {
+	/**
+	 * Create data set for a pie chart using HashMap of 
+	 * symptom locations and their corresponding scores
+	 * @param locScores HashMap<String, Integer> of symptom locations to scores
+	 * @return the final dataset (PieDataSet)
+	 */
+	public PieDataset createDataSet(HashMap<String, Integer> locScores) {
 		DefaultPieDataset  dataset = new DefaultPieDataset ( );
-	      Iterator it = locScores.entrySet().iterator();
+		// Iterator to move through HashMap
+	      Iterator it = locScores.entrySet().iterator(); 
 	      while (it.hasNext()) {
+	    	  // HashMap.Entry is a single object containing
+	    	  // the HashMap key and value
 	    	  HashMap.Entry pair = (HashMap.Entry)it.next();	        
 	    	  dataset.setValue((Comparable) pair.getKey(), (int)pair.getValue());
-	    	  it.remove(); // avoids a ConcurrentModificationException
+	    	  it.remove(); // Avoids a ConcurrentModificationException
 	      }
 		  return dataset;
 	}

@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 
 public class RegAndConn {
 	
+	// Database login information
 	final String URL = "jdbc:mysql://localhost:3306/symptom_tracker";
 	final String USER = "root";
 	final String PASS = "ccuiMySQL";

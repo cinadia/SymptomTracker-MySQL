@@ -6,71 +6,103 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-// TODO: should everything be static or non-static?
-// if nonstatic, does that mean whenever I want to 
-// use a method I have to make an instance of that class first?
-// where should I make the instance of the class?
+import javax.swing.JLabel;
+
 public class SymptomTracker {
+	// TODO: make all vars nonstatic and make all methods nonstatic, and remove SymptomTracker. for the method calls
 	
-	// TODO: figure out how to make client lol
-	static int client = 1;
-	static String location;
-	static String symptom;
-	static java.sql.Date date;
-	static int severity = -1; // Default non-selected value
-	static int length = -1; //   "
-	static int score;
-	static String homeRem;
+	 int client = 1;
+	 String location;
+	 String symptom;
+	 java.sql.Date date;
+	 int severity = -1; // Default non-selected value
+	 int length = -1; //   "
+	 int score;
+	 String homeRem;
 	
 	static int userID;
-	static String firstName;
-	static String lastName;
-	static String username;
-	static String password;
+	 String firstName;
+	 String lastName;
+	 String username;
+	 String password;
 	
 	
-
+	/**
+	 * Checks if the given text is valid.
+	 * Only accepted values are positive integers.
+	 * @param text the text to be tested
+	 * @return true if text is a positive integer
+	 */
+	public boolean isValid(String text) {
+	   try {
+	      Integer.parseInt(text);
+	      if (Integer.parseInt(text) <= 0)
+	    	  return false;
+	      return true;
+	   } catch (NumberFormatException e) {
+	      return false;
+	   }
+	}
+	
+	/**
+	 * Sets the text of a label to the 
+	 * final calculated score. Final score is 
+	 * calculated by severity multiplied by length.
+	 * @param severity the provided severity
+	 * @param lblCalculatedScore the label to be updated
+	 */
+	public void setCalculatedScore(int severity, JLabel lblCalculatedScore) {
+		setSeverity(severity);
+		int length = getLength();
+		if (length != -1) {
+			int score = severity*length;
+			lblCalculatedScore.setText(Integer.toString(score));
+			setScore(score);
+			System.out.println("Setting score as " + score);
+		}
+	}
+	
 	// SETTERS
-	public static void setLocation(String l) {
+	public void setLocation(String l) {
 		location = l;
 		System.out.println(location);
 	}
 	
-	public static void setSymptom(String s) {
+	public void setSymptom(String s) {
 		symptom = s;
 		System.out.println(symptom);
 	}
 	
-	public static void setDate(java.sql.Date d) {
+	public void setDate(java.sql.Date d) {
 		date = d;
 		System.out.println(date);
 	}
 	
-	public static void setSeverity(int s) {
+	public void setSeverity(int s) {
 		severity = s;
 		System.out.println(severity);
 	}
 	
-	public static void setLength(int l) {
+	public void setLength(int l) {
 		length = l;
 		System.out.println(length);
 	}
 	
-	public static void setScore(int s) {
+	public void setScore(int s) {
 		score = s;
 		System.out.println(score);
 	}
 	
-	public static void setHomeRem(String hr) {
+	public void setHomeRem(String hr) {
 		homeRem = hr;
 		System.out.println(homeRem);
 	}
 	
-	public static void setUserID(int id) {
+	public void setUserID(int id) {
 		userID = id;
 		System.out.println(userID);
 	}
-	public static void setFirstName(String first) {
+	public void setFirstName(String first) {
 		// establish database connection
 		RegAndConn raC = new RegAndConn();
 		raC.connectDB();
@@ -97,7 +129,7 @@ public class SymptomTracker {
 			}
 		}			
 	}
-	public static void setLastName(String last) {
+	public void setLastName(String last) {
 		// establish database connection
 		RegAndConn raC = new RegAndConn();
 		raC.connectDB();
@@ -125,7 +157,7 @@ public class SymptomTracker {
 		}		
 	}
 	
-	public static void setUsername(String un) {
+	public void setUsername(String un) {
 		// establish database connection
 		RegAndConn raC = new RegAndConn();
 		raC.connectDB();
@@ -157,7 +189,7 @@ public class SymptomTracker {
 	 * Set user's password in the database
 	 */
 	//TODO: does the password instance variable update too?? does it need to?
-	public static void setPassword(String pass) {
+	public void setPassword(String pass) {
 		// establish database connection
 		RegAndConn raC = new RegAndConn();
 		raC.connectDB();
@@ -186,39 +218,47 @@ public class SymptomTracker {
 	}
 	
 	// GETTERS
-	public static int getSeverity() {
+	public int getSeverity() {
 		return severity;
 	}
 	
-	public static int getLength() {
+	public int getLength() {
 		return length;
 	}
 	
-	public static int getUserID() {
+	public int getUserID() {
 		return userID;
 	}
 	
-	// TODO: probably dont need these next 4
-	public static String getFirstName() {
-		return firstName;
+//	// TODO: probably dont need these next 4
+//	public String getFirstName() {
+//		return firstName;
+//	}
+//	
+//	public static String getLastName() {
+//		return lastName;
+//	}
+//	
+//	public static String getUsername() {
+//		return username;
+//	}
+//	
+//	public static String getPassword() {
+//		return password;
+//	}
+	
+	public String getSymptom() {
+		return symptom;
 	}
 	
-	public static String getLastName() {
-		return lastName;
-	}
-	
-	public static String getUsername() {
-		return username;
-	}
-	
-	public static String getPassword() {
-		return password;
+	public int getScore() {
+		return score;
 	}
 	
 	/*Returns String[] of symptom locations 
 	 * from database 
 	 */
-	public static String[] getSymptomLocations() {
+	public String[] getSymptomLocations() {
 		final long NUMLOC; // number of rows in symptom_locations
 		String[] locations = null;
 		
@@ -268,7 +308,7 @@ public class SymptomTracker {
 	/* Returns String[] of symptoms
 	 * from databases
 	 */
-	public static String[] getSymptoms() {
+	public String[] getSymptoms() {
 		final long NUMSYMS; // number of rows in symptom_locations
 		String[] symptoms = null;
 		
@@ -318,7 +358,7 @@ public class SymptomTracker {
 	 * Returns String[] of home remedies
 	 * from database
 	 */
-	public static String[] getHomeRems() {
+	public String[] getHomeRems() {
 		final long NUM; // number of rows in symptom_locations
 		String[] homeRems = null;
 		
@@ -367,7 +407,7 @@ public class SymptomTracker {
 	 * Returns ArrayList<String> of all usernames
 	 * from database
 	 */
-	public static ArrayList<String> getAllUsernames() {
+	public ArrayList<String> getAllUsernames() {
 		ArrayList<String> allUsers = new ArrayList<>();
 		
 		RegAndConn raC = new RegAndConn();
@@ -404,7 +444,7 @@ public class SymptomTracker {
 	/*
 	 * Returns information about current client
 	 */
-	public static String[] getClientInfo() {
+	public String[] getClientInfo() {
 		String[] info = new String[4];
 		
 		// establish database connection
@@ -448,7 +488,7 @@ public class SymptomTracker {
 	 * Get primary key for location
 	 */
 	//TODO: use join instead
-	public static String getLocationID(String loc) {
+	public String getLocationID(String loc) {
 		RegAndConn raC = new RegAndConn();
 		raC.connectDB();
 		
@@ -491,7 +531,7 @@ public class SymptomTracker {
 	 *  Get Primary Key for Symptom Type
 	 */
 	//TODO: use join instead
-	public static String getSymptomTypeID() {
+	public String getSymptomTypeID() {
 		RegAndConn raC = new RegAndConn();
 		raC.connectDB();
 		
@@ -505,7 +545,7 @@ public class SymptomTracker {
 			
 			String query = "SELECT symptom_type_id FROM symptom_types " 
 					+ "WHERE symptom = " 
-					+ "'" + symptom + "'";
+					+ "'" + getSymptom() + "'";
 			
 			System.out.println(query);
 			// execute query
@@ -534,7 +574,7 @@ public class SymptomTracker {
 	 * Get Primary Key for Home Remedy
 	 */
 	//TODO: use join instead
-	public static String getHomeRemID(String hRem) {
+	public String getHomeRemID(String hRem) {
 		RegAndConn raC = new RegAndConn();
 		raC.connectDB();
 		
@@ -580,7 +620,7 @@ public class SymptomTracker {
 	 * Get location of a symptom log corresponding to
 	 * the given symptom_instance
 	 */
-	public static String getSymLocFromInstance(int instance) {
+	public String getSymLocFromInstance(int instance) {
 		RegAndConn raC = new RegAndConn();
 		raC.connectDB();
 		
@@ -605,7 +645,7 @@ public class SymptomTracker {
 			rs.next();
 			location = rs.getString("location");
 			System.out.println(location);
-			SymptomTracker.setLocation(location);
+			setLocation(location);
 			return location;
 			
 		} catch (Exception e){
@@ -626,7 +666,7 @@ public class SymptomTracker {
 	 * Get symptom type of a symptom log corresponding to
 	 * the given symptom_instance
 	 */
-	public static String getSymTypeFromInstance(int instance) {
+	public String getSymTypeFromInstance(int instance) {
 		RegAndConn raC = new RegAndConn();
 		raC.connectDB();
 		
@@ -650,7 +690,7 @@ public class SymptomTracker {
 			rs.next();
 			symptom = rs.getString("symptom");
 			System.out.println(symptom);
-			SymptomTracker.setSymptom(symptom);
+			setSymptom(symptom);
 
 			return symptom;
 			
@@ -672,7 +712,7 @@ public class SymptomTracker {
 	 * Get date of a symptom log corresponding to
 	 * the given symptom_instance
 	 */
-	public static Date getSymDateFromInstance(int instance) {
+	public Date getSymDateFromInstance(int instance) {
 		RegAndConn raC = new RegAndConn();
 		raC.connectDB();
 		
@@ -693,7 +733,7 @@ public class SymptomTracker {
 			rs.next();
 			date = rs.getDate("date");
 			System.out.println(date);
-			SymptomTracker.setDate(date);
+			setDate(date);
 			return date;
 			
 		} catch (Exception e){
@@ -713,7 +753,7 @@ public class SymptomTracker {
 	 * Get severity of a symptom log corresponding to
 	 * the given symptom_instance
 	 */
-	public static int getSeverityFromInstance(int instance) {
+	public int getSeverityFromInstance(int instance) {
 		RegAndConn raC = new RegAndConn();
 		raC.connectDB();
 		
@@ -734,7 +774,7 @@ public class SymptomTracker {
 			rs.next();
 			severity = rs.getInt("severity");
 			System.out.println(severity);
-			SymptomTracker.setSeverity(severity);
+			setSeverity(severity);
 			return severity;
 			
 		} catch (Exception e){
@@ -754,7 +794,7 @@ public class SymptomTracker {
 	 * Get duration of a symptom log corresponding to
 	 * the given symptom_instance
 	 */
-	public static String getDurationFromInstance(int instance) {
+	public String getDurationFromInstance(int instance) {
 		RegAndConn raC = new RegAndConn();
 		raC.connectDB();
 		
@@ -775,7 +815,7 @@ public class SymptomTracker {
 			rs.next();
 			duration = rs.getInt("length");
 			System.out.println(duration);
-			SymptomTracker.setLength(duration);
+			setLength(duration);
 			return Integer.toString(duration);
 			
 		} catch (Exception e){
@@ -796,7 +836,7 @@ public class SymptomTracker {
 	 * Used when user updates a symptom log
 	 * using the EditLogsWindow
 	 */
-	public static void updateSymInstance(int instance) {	
+	public void updateSymInstance(int instance) {	
 		RegAndConn raC = new RegAndConn();
 		raC.connectDB();
 		
@@ -841,7 +881,7 @@ public class SymptomTracker {
 	 * Get home remedy of a home remedy log corresponding to
 	 * the given hr_instance
 	 */
-	public static String getHomeRemFromInstance(int instance) {
+	public String getHomeRemFromInstance(int instance) {
 		RegAndConn raC = new RegAndConn();
 		raC.connectDB();
 		
@@ -866,7 +906,7 @@ public class SymptomTracker {
 			hr = rs.getString("home_remedy");
 			System.out.println(hr);
 			
-			SymptomTracker.setHomeRem(hr);
+			setHomeRem(hr);
 
 			return hr;
 			
@@ -888,7 +928,7 @@ public class SymptomTracker {
 	 * Get location of a home remedy log corresponding to
 	 * the given hr_instance
 	 */
-	public static String getHRLocFromInstance(int instance) {
+	public String getHRLocFromInstance(int instance) {
 		RegAndConn raC = new RegAndConn();
 		raC.connectDB();
 		
@@ -912,7 +952,7 @@ public class SymptomTracker {
 			location = rs.getString("location");
 			System.out.println(location);
 			
-			SymptomTracker.setLocation(location);
+			setLocation(location);
 
 			return location;
 			
@@ -934,7 +974,7 @@ public class SymptomTracker {
 	 * Get date of a home remedy log corresponding to
 	 * the given hr_instance
 	 */
-	public static Date getHRDateFromInstance(int instance) {
+	public Date getHRDateFromInstance(int instance) {
 		RegAndConn raC = new RegAndConn();
 		raC.connectDB();
 		
@@ -955,7 +995,7 @@ public class SymptomTracker {
 			rs.next();
 			date = rs.getDate("date");
 			System.out.println(date);
-			SymptomTracker.setDate(date);
+			setDate(date);
 			return date;
 			
 		} catch (Exception e){
@@ -976,7 +1016,7 @@ public class SymptomTracker {
 	 * Used when user updates a symptom log
 	 * using the EditLogsWindow
 	 */
-	public static void updateHRInstance(int instance) {	
+	public void updateHRInstance(int instance) {	
 		RegAndConn raC = new RegAndConn();
 		raC.connectDB();
 		
@@ -1016,7 +1056,7 @@ public class SymptomTracker {
 	 * Insert user-selected data into
 	 * home_remedies_log in database
 	 */
-	public static void runLogHomeRem() {
+	public void runLogHomeRem() {
 		RegAndConn raC = new RegAndConn();
 		raC.connectDB();
 		
@@ -1052,7 +1092,7 @@ public class SymptomTracker {
 	/*
 	 * Insert user-selected data into symptoms_log
 	 */
-	public static void runLogSymptom() {
+	public void runLogSymptom() {
 		
 		RegAndConn raC = new RegAndConn();
 		raC.connectDB();
@@ -1094,7 +1134,7 @@ public class SymptomTracker {
 	/*
 	 * Add new user to client schema
 	 */
-	public static void addNewUser(String first, String last, String user, String pass) {
+	public void addNewUser(String first, String last, String user, String pass) {
 		setFirstName(first);
 		setLastName(last);
 		setUsername(user);
@@ -1120,6 +1160,14 @@ public class SymptomTracker {
 			// execute query
 			stat.executeUpdate(query);
 			
+			String getUser = "SELECT client_id FROM clients WHERE client_user = "
+					+ "'" + user + "'";
+			System.out.println(getUser);
+			rs = stat.executeQuery(getUser);
+			rs.next();
+			setUserID(rs.getInt("client_id"));
+			System.out.println("setting current client id for new user to " + getUserID());
+			
 		} catch (Exception e){
 			e.printStackTrace();
 		} finally {
@@ -1131,6 +1179,7 @@ public class SymptomTracker {
 			}
 		}	
 	}
+	
 	
 	
 }

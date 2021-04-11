@@ -16,16 +16,21 @@ import java.sql.Date;
 import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 import com.toedter.calendar.JDateChooser;
+import java.awt.Color;
+import java.awt.Font;
 
 public class LogSymWindow {
 
+	SymptomTracker st = new SymptomTracker();
 	private JFrame frame;
-	private JTextField textField;
+	private JTextField txtDuration;
+	private JLabel lblCalculatedScore;
 
 	/**
-	 * Launch the application.
+	 * Launch the LogSymWindow application, where
+	 * users can log new symptoms into the database.
 	 */
-	public static void newLogSymWindow() {
+	public void newLogSymWindow() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -50,190 +55,188 @@ public class LogSymWindow {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.getContentPane().setBackground(new Color(153, 204, 255));
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		// Labels
-		JLabel lblNewLabel = new JLabel("Location");
-		lblNewLabel.setBounds(10, 11, 71, 14);
-		frame.getContentPane().add(lblNewLabel);
+		JLabel lblLocation = new JLabel("Location");
+		lblLocation.setFont(new Font("Eras Demi ITC", Font.PLAIN, 11));
+		lblLocation.setBounds(10, 11, 71, 14);
+		frame.getContentPane().add(lblLocation);
 		
-		JLabel lblNewLabel_1 = new JLabel("Symptom Type");
-		lblNewLabel_1.setBounds(10, 36, 86, 14);
-		frame.getContentPane().add(lblNewLabel_1);
+		JLabel lblSymptom = new JLabel("Symptom Type");
+		lblSymptom.setBounds(10, 36, 86, 14);
+		lblSymptom.setFont(new Font("Eras Demi ITC", Font.PLAIN, 11));
+
+		frame.getContentPane().add(lblSymptom);
 		
-		JLabel lblNewLabel_2 = new JLabel("Date");
-		lblNewLabel_2.setBounds(10, 61, 48, 14);
-		frame.getContentPane().add(lblNewLabel_2);
+		JLabel lblDate = new JLabel("Date");
+		lblDate.setBounds(10, 61, 48, 14);
+		frame.getContentPane().add(lblDate);
+		lblDate.setFont(new Font("Eras Demi ITC", Font.PLAIN, 11));
+
+		JLabel lblSeverity = new JLabel("Severity");
+		lblSeverity.setBounds(10, 86, 48, 14);
+		frame.getContentPane().add(lblSeverity);
+		lblSeverity.setFont(new Font("Eras Demi ITC", Font.PLAIN, 11));
+
+		JLabel lblDuration = new JLabel("Duration (min)");
+		lblDuration.setBounds(10, 116, 105, 14);
+		frame.getContentPane().add(lblDuration);
+		lblDuration.setFont(new Font("Eras Demi ITC", Font.PLAIN, 11));
+
+		JLabel lblFinalScore = new JLabel("Final Score");
+		lblFinalScore.setBounds(10, 141, 71, 14);
+		frame.getContentPane().add(lblFinalScore);
+		lblFinalScore.setFont(new Font("Eras Demi ITC", Font.PLAIN, 11));
+
+		// Final score dynamic label 
+		lblCalculatedScore = new JLabel("CALCULATING...");
+		lblCalculatedScore.setBounds(125, 141, 128, 14);
+		frame.getContentPane().add(lblCalculatedScore);
+		lblCalculatedScore.setFont(new Font("Eras Demi ITC", Font.PLAIN, 11));
+
 		
-		JLabel lblNewLabel_3 = new JLabel("Severity");
-		lblNewLabel_3.setBounds(10, 86, 48, 14);
-		frame.getContentPane().add(lblNewLabel_3);
-		
-		JLabel lblNewLabel_4 = new JLabel("Duration (min)");
-		lblNewLabel_4.setBounds(10, 116, 105, 14);
-		frame.getContentPane().add(lblNewLabel_4);
-		
-		JLabel lblNewLabel_5 = new JLabel("Final Score");
-		lblNewLabel_5.setBounds(10, 141, 71, 14);
-		frame.getContentPane().add(lblNewLabel_5);
-		
-		// Symptom Location dropdown 
-		
-		JComboBox comboBox = new JComboBox(SymptomTracker.getSymptomLocations());
-		comboBox.setSelectedItem(null);
-		comboBox.addActionListener(new ActionListener() {
+		// Comboboxes
+		// Symptom Location combo box (dropdown)
+		JComboBox cbLocation = new JComboBox(st.getSymptomLocations());
+		cbLocation.setBackground(new Color(204, 255, 255));
+		cbLocation.setSelectedItem(null);
+		cbLocation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				// Get selected String and set location in SymptomTracker class
 				JComboBox cb = (JComboBox)arg0.getSource();
 		        String location = (String)cb.getSelectedItem();
-				SymptomTracker.setLocation(location); 
+				st.setLocation(location); 
 			}
 		});
-		comboBox.setBounds(125, 7, 86, 22);
-		frame.getContentPane().add(comboBox);
+		cbLocation.setBounds(125, 7, 86, 22);
+		frame.getContentPane().add(cbLocation);
 		
 		// Symptom Type dropdown
-		JComboBox comboBox_1 = new JComboBox(SymptomTracker.getSymptoms());
-		comboBox_1.setSelectedItem(null);
-		comboBox_1.addActionListener(new ActionListener() {
+		JComboBox cbSymType = new JComboBox(st.getSymptoms());
+		cbSymType.setBackground(new Color(204, 255, 255));
+		cbSymType.setSelectedItem(null);
+		cbSymType.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				// Get selected String and set symptom 
+				// in SymptomTracker class
 				JComboBox cb = (JComboBox)arg0.getSource();
-				String location = (String)cb.getSelectedItem();
-				SymptomTracker.setSymptom(location);
+				String symptom = (String)cb.getSelectedItem();
+				st.setSymptom(symptom);
 			}
 		});
-		comboBox_1.setBounds(125, 32, 86, 22);
-		frame.getContentPane().add(comboBox_1);
+		cbSymType.setBounds(125, 32, 86, 22);
+		frame.getContentPane().add(cbSymType);
 		
-		
-		// Final score label 
-		JLabel lblNewLabel_6 = new JLabel("CALCULATING...");
-		lblNewLabel_6.setBounds(125, 141, 128, 14);
-		frame.getContentPane().add(lblNewLabel_6);
-				
-		
+	
 		// Severity radio buttons
-		JRadioButton rdbtnNewRadioButton = new JRadioButton("1");
-		rdbtnNewRadioButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				SymptomTracker.setSeverity(1);
-				int length = SymptomTracker.getLength();
-				if (length != -1) {
-					lblNewLabel_6.setText(Integer.toString(length));
-					SymptomTracker.setScore(length);
-				}
-			}
-		});
-		rdbtnNewRadioButton.setBounds(125, 82, 37, 23);
-		frame.getContentPane().add(rdbtnNewRadioButton);
+		/* Set severity for corresponding radio buttons and 
+		 * calculate and display final score using
+		 * setScore(int) method.
+		 */
 		
-		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("2");
-		rdbtnNewRadioButton_1.addActionListener(new ActionListener() {
+		JRadioButton rb1 = new JRadioButton("1");
+		rb1.setBackground(new Color(204, 255, 255));
+		rb1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				SymptomTracker.setSeverity(2);
-				int length = SymptomTracker.getLength();
-				if (length != -1) {
-					int score = 2*length;
-					lblNewLabel_6.setText(Integer.toString(score));
-					SymptomTracker.setScore(score);
-
-				}
+				st.setCalculatedScore(1, lblFinalScore);
 			}
 		});
-		rdbtnNewRadioButton_1.setBounds(164, 82, 37, 23);
-		frame.getContentPane().add(rdbtnNewRadioButton_1);
+		rb1.setBounds(125, 82, 37, 23);
+		frame.getContentPane().add(rb1);
 		
-		JRadioButton rdbtnNewRadioButton_2 = new JRadioButton("3");
-		rdbtnNewRadioButton_2.addActionListener(new ActionListener() {
+		JRadioButton rb2 = new JRadioButton("2");
+		rb2.setBackground(new Color(204, 255, 255));
+		rb2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				SymptomTracker.setSeverity(3);
-				int length = SymptomTracker.getLength();
-				if (length != -1) {
-					int score = 3*length;
-					lblNewLabel_6.setText(Integer.toString(score));
-					SymptomTracker.setScore(score);
-
+				st.setCalculatedScore(2, lblFinalScore);			
 				}
-			}
 		});
-		rdbtnNewRadioButton_2.setBounds(203, 82, 37, 23);
-		frame.getContentPane().add(rdbtnNewRadioButton_2);
+		rb2.setBounds(164, 82, 37, 23);
+		frame.getContentPane().add(rb2);
 		
-		JRadioButton rdbtnNewRadioButton_3 = new JRadioButton("4");
-		rdbtnNewRadioButton_3.addActionListener(new ActionListener() {
+		JRadioButton rb3 = new JRadioButton("3");
+		rb3.setBackground(new Color(204, 255, 255));
+		rb3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				SymptomTracker.setSeverity(4);
-				int length = SymptomTracker.getLength();
-				if (length != -1) {
-					int score = 4*length;
-					lblNewLabel_6.setText(Integer.toString(score));
-					SymptomTracker.setScore(score);
+				st.setCalculatedScore(3, lblFinalScore);			
 				}
-			}
 		});
-		rdbtnNewRadioButton_3.setBounds(242, 82, 37, 23);
-		frame.getContentPane().add(rdbtnNewRadioButton_3);
+		rb3.setBounds(203, 82, 37, 23);
+		frame.getContentPane().add(rb3);
 		
-		JRadioButton rdbtnNewRadioButton_4 = new JRadioButton("5");
-		rdbtnNewRadioButton_4.addActionListener(new ActionListener() {
+		JRadioButton rb4 = new JRadioButton("4");
+		rb4.setBackground(new Color(204, 255, 255));
+		rb4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				SymptomTracker.setSeverity(5);
-				int length = SymptomTracker.getLength();
-				if (length != -1) {
-					int score = 5*length;
-					lblNewLabel_6.setText(Integer.toString(score));
-					SymptomTracker.setScore(score);
+				st.setCalculatedScore(4, lblFinalScore);			
 				}
-			}
 		});
-		rdbtnNewRadioButton_4.setBounds(281, 82, 37, 23);
-		frame.getContentPane().add(rdbtnNewRadioButton_4);
+		rb4.setBounds(242, 82, 37, 23);
+		frame.getContentPane().add(rb4);
+		
+		JRadioButton rb5 = new JRadioButton("5");
+		rb5.setBackground(new Color(204, 255, 255));
+		rb5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				st.setCalculatedScore(1, lblFinalScore);			
+				}
+		});
+		rb5.setBounds(281, 82, 37, 23);
+		frame.getContentPane().add(rb5);
 		
 		// Group radio buttons
 		ButtonGroup group = new ButtonGroup();
-	    group.add(rdbtnNewRadioButton);
-	    group.add(rdbtnNewRadioButton_1);
-	    group.add(rdbtnNewRadioButton_2);
-	    group.add(rdbtnNewRadioButton_3);
-	    group.add(rdbtnNewRadioButton_4);
+	    group.add(rb1);
+	    group.add(rb2);
+	    group.add(rb3);
+	    group.add(rb4);
+	    group.add(rb5);
 		
 	    // Duration text field
-		textField = new JTextField();
-		textField.addActionListener(new ActionListener() {
+		txtDuration = new JTextField();
+		txtDuration.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-			    String text = textField.getText();
-			    if (isValid(text)) {
+			    String text = txtDuration.getText();
+			    if (st.isValid(text)) {
 			    	Integer dur = Integer.parseInt(text);
-			    	SymptomTracker.setLength(dur);
-			    	int sev = SymptomTracker.getSeverity();
+			    	st.setLength(dur);
+			    	int sev = st.getSeverity();
 			    	if (sev != -1) {
 			    		int score = sev*dur;
-			    		lblNewLabel_6.setText(Integer.toString(score));
-						SymptomTracker.setScore(score);
+			    		lblCalculatedScore.setText(Integer.toString(score));
+						st.setScore(score);
 			    	}
 			     } else {
 			    	 JOptionPane.showMessageDialog(frame, "Whoops! Positive numbers only!");
 			    	 }
 			  }
 		});
-		textField.setBounds(125, 113, 42, 20);
-		frame.getContentPane().add(textField);
-		textField.setColumns(10);
+		txtDuration.setBounds(125, 113, 42, 20);
+		frame.getContentPane().add(txtDuration);
+		txtDuration.setColumns(10);
+		
 		
 		// SAVE button
-		JButton btnNewButton = new JButton("SAVE");
-		btnNewButton.addActionListener(new ActionListener() {
+		// Runs the runLogSymptom() method in SymptomTracker
+		JButton btnSave = new JButton("SAVE");
+		btnSave.setFont(new Font("Eras Demi ITC", Font.PLAIN, 11));
+		btnSave.setBackground(new Color(204, 255, 255));
+		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				SymptomTracker.runLogSymptom();
-				System.out.println("SAVE button was clicked.");
-				System.out.println(SymptomTracker.score);
+				st.runLogSymptom();
+				// TODO remove print
+				System.out.println("saved score " + st.score);
 				frame.dispose();
 			}
 		});
-		btnNewButton.setBounds(174, 166, 89, 23);
-		frame.getContentPane().add(btnNewButton);
+		btnSave.setBounds(174, 166, 89, 23);
+		frame.getContentPane().add(btnSave);
 		
+		// Date chooser
 		JDateChooser dateChooser = new JDateChooser();
 		dateChooser.setBounds(125, 61, 115, 20);
 		dateChooser.getDateEditor().addPropertyChangeListener(
@@ -243,22 +246,27 @@ public class LogSymWindow {
 			            if ("date".equals(e.getPropertyName())) {
 			            	java.util.Date utilDate = (java.util.Date) e.getNewValue();
 			            	java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-			            	SymptomTracker.setDate(sqlDate);
+			            	st.setDate(sqlDate);
 			            }
 			        }
 			    });
 		frame.getContentPane().add(dateChooser);
 	}
 	
-	// Checks if text is valid
-	private static boolean isValid(String text) {
-	   try {
-	      Integer.parseInt(text);
-	      if (Integer.parseInt(text) <= 0)
-	    	  return false;
-	      return true;
-	   } catch (NumberFormatException e) {
-	      return false;
-	   }
+	/**
+	 * Sets the final calculated score. Score is 
+	 * calculated by severity multiplied by length.
+	 * @param severity the provided severity
+	 */
+	private void setScore(int severity) {
+		st.setSeverity(severity);
+		int length = st.getLength();
+		if (length != -1) {
+			int score = severity*length;
+			lblCalculatedScore.setText(Integer.toString(score));
+			st.setScore(score);
+			System.out.println("Setting score as " + score);
+	}
+	
 	}
 }

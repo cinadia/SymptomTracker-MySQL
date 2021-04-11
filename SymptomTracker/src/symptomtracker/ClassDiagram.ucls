@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.2.4" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
+  <class id="1" language="java" name="symptomtracker.PieChart" project="SymptomTracker" 
+    file="/SymptomTracker/src/symptomtracker/PieChart.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="114" width="276" x="300" y="-205"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="2" language="java" name="symptomtracker.RegAndConn" project="SymptomTracker" 
+    file="/SymptomTracker/src/symptomtracker/RegAndConn.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="204" width="128" x="616" y="-205"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="symptomtracker.SymptomTracker" project="SymptomTracker" 
+    file="/SymptomTracker/src/symptomtracker/SymptomTracker.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="1032" width="232" x="784" y="-205"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="symptomtracker.LogProfRemedy" project="SymptomTracker" 
+    file="/SymptomTracker/src/symptomtracker/LogProfRemedy.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="78" width="117" x="1056" y="-205"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="symptomtracker.LogHomeRemedy" project="SymptomTracker" 
+    file="/SymptomTracker/src/symptomtracker/LogHomeRemedy.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="78" width="126" x="1213" y="-205"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="symptomtracker.LogRemWindow" project="SymptomTracker" 
+    file="/SymptomTracker/src/symptomtracker/LogRemWindow.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="132" width="119" x="1379" y="-205"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="symptomtracker.HomePage" project="SymptomTracker" 
+    file="/SymptomTracker/src/symptomtracker/HomePage.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="150" width="135" x="1538" y="-205"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="8" language="java" name="symptomtracker.ViewHomeRems" project="SymptomTracker" 
+    file="/SymptomTracker/src/symptomtracker/ViewHomeRems.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="204" width="168" x="1713" y="-205"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="9" language="java" name="symptomtracker.EditLogsWindow" project="SymptomTracker" 
+    file="/SymptomTracker/src/symptomtracker/EditLogsWindow.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="204" width="164" x="1921" y="-205"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="10" language="java" name="symptomtracker.LogSymWindow" project="SymptomTracker" 
+    file="/SymptomTracker/src/symptomtracker/LogSymWindow.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="168" width="150" x="2125" y="-205"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="11" language="java" name="symptomtracker.ButtonColumn" project="SymptomTracker" 
+    file="/SymptomTracker/src/symptomtracker/ButtonColumn.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="348" width="413" x="2315" y="-205"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="12" language="java" name="symptomtracker.EditHomeRemsWindow" project="SymptomTracker" 
+    file="/SymptomTracker/src/symptomtracker/EditHomeRemsWindow.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="168" width="184" x="2768" y="-205"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="13" language="java" name="symptomtracker.MakeTable" project="SymptomTracker" 
+    file="/SymptomTracker/src/symptomtracker/MakeTable.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="276" width="176" x="2992" y="-205"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="14" language="java" name="symptomtracker.NewClientWindow" project="SymptomTracker" 
+    file="/SymptomTracker/src/symptomtracker/NewClientWindow.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="222" width="159" x="3208" y="-205"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="15" language="java" name="symptomtracker.Stats" project="SymptomTracker" 
+    file="/SymptomTracker/src/symptomtracker/Stats.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="114" width="249" x="3407" y="-205"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="16" language="java" name="symptomtracker.SymptomLogs" project="SymptomTracker" 
+    file="/SymptomTracker/src/symptomtracker/SymptomLogs.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="132" width="111" x="3696" y="-205"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="17" language="java" name="symptomtracker.ProfileWindow" project="SymptomTracker" 
+    file="/SymptomTracker/src/symptomtracker/ProfileWindow.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="204" width="187" x="3847" y="-205"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="18" language="java" name="symptomtracker.LineChart" project="SymptomTracker" 
+    file="/SymptomTracker/src/symptomtracker/LineChart.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="114" width="332" x="4074" y="-205"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="19" language="java" name="symptomtracker.LoginWindow" project="SymptomTracker" 
+    file="/SymptomTracker/src/symptomtracker/LoginWindow.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="186" width="182" x="4446" y="-205"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="20" language="java" name="symptomtracker.ViewSymLogs" project="SymptomTracker" 
+    file="/SymptomTracker/src/symptomtracker/ViewSymLogs.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="204" width="168" x="4668" y="-205"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="21" language="java" name="symptomtracker.Main" project="SymptomTracker" 
+    file="/SymptomTracker/src/symptomtracker/Main.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="96" width="111" x="4876" y="-205"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="22" language="java" name="symptomtracker.MakeStats" project="SymptomTracker" 
+    file="/SymptomTracker/src/symptomtracker/MakeStats.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="186" width="162" x="5027" y="-205"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

@@ -18,29 +18,43 @@ public class MakeStats {
 	private static String location;
 	private static java.sql.Date startDate;
 	private static java.sql.Date endDate;
+	SymptomTracker st = new SymptomTracker();
+	Stats s = new Stats();
 	
 
+	
+//	public void newMakeStatsWindow() {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					MakeStats window = new MakeStats();
+//					window.frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
+
 	/**
-	 * Launch the application.
+	 * Launch the MakeStats application, where
+	 * user can create a unique line chart with 
+	 * Location Scores vs. Date
 	 */
-	public static void newMakeStatsWindow() {
+	public MakeStats() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MakeStats window = new MakeStats();
-					window.frame.setVisible(true);
+					initialize();
+//					MakeStats window = new MakeStats();
+//					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
-	}
-
-	/**
-	 * Create the application.
-	 */
-	public MakeStats() {
-		initialize();
+		//initialize();
+		
 	}
 
 	/**
@@ -52,6 +66,7 @@ public class MakeStats {
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
+		// Labels
 		JLabel titleLabel = new JLabel("Create your own log charts!");
 		titleLabel.setBounds(136, 11, 165, 14);
 		frame.getContentPane().add(titleLabel);
@@ -64,6 +79,11 @@ public class MakeStats {
 		endLabel.setBounds(10, 89, 67, 14);
 		frame.getContentPane().add(endLabel);
 		
+		JLabel chooseLocationLabel = new JLabel("Choose Location");
+		chooseLocationLabel.setBounds(10, 138, 90, 14);
+		frame.getContentPane().add(chooseLocationLabel);
+		
+		// Get the start date bound for making chart
 		JDateChooser chooseStartDate = new JDateChooser();
 		chooseStartDate.getDateEditor().addPropertyChangeListener(
 			    new PropertyChangeListener() {
@@ -72,6 +92,7 @@ public class MakeStats {
 			            if ("date".equals(e.getPropertyName())) {
 			            	java.util.Date utilDate = (java.util.Date) e.getNewValue();
 			            	startDate = new java.sql.Date(utilDate.getTime());
+			            	// TODO remove print
 			            	System.out.println(startDate);
 			            }
 			        }
@@ -79,6 +100,8 @@ public class MakeStats {
 		chooseStartDate.setBounds(105, 43, 123, 20);
 		frame.getContentPane().add(chooseStartDate);
 		
+		// Get end date bound for making chart
+		// TODO: what if start is after end?
 		JDateChooser chooseEndDate = new JDateChooser();
 		chooseEndDate.getDateEditor().addPropertyChangeListener(
 			    new PropertyChangeListener() {
@@ -94,11 +117,8 @@ public class MakeStats {
 		chooseEndDate.setBounds(105, 83, 123, 20);
 		frame.getContentPane().add(chooseEndDate);
 		
-		JLabel chooseLocationLabel = new JLabel("Choose Location");
-		chooseLocationLabel.setBounds(10, 138, 90, 14);
-		frame.getContentPane().add(chooseLocationLabel);
-		
-		JComboBox chooseLocation = new JComboBox(SymptomTracker.getSymptomLocations());
+		// Location combo box
+		JComboBox chooseLocation = new JComboBox(st.getSymptomLocations());
 		chooseLocation.setSelectedItem(null);
 		chooseLocation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -109,15 +129,18 @@ public class MakeStats {
 		chooseLocation.setBounds(105, 134, 90, 22);
 		frame.getContentPane().add(chooseLocation);
 		
+		// Button to make chart
 		JButton makeChartButt = new JButton("Make Chart!");
 		makeChartButt.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				LineChart chart = new LineChart(Stats.getScoresDates(startDate, endDate, location), location);
+				// New chart
+				LineChart chart = new LineChart(s.getScoresDates(startDate, endDate, location), location);
 				chart.pack();
 				chart.setVisible(true);
 			}
 		});
 		makeChartButt.setBounds(161, 194, 115, 23);
 		frame.getContentPane().add(makeChartButt);
+		frame.setVisible(true);
 	}
 }

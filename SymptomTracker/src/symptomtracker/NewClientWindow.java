@@ -20,11 +20,14 @@ public class NewClientWindow {
 	private JTextField lastNameField;
 	private JTextField userField;
 	private JTextField passwordField;
+	
+	SymptomTracker st = new SymptomTracker();
 
 	/**
-	 * Launch the application.
+	 * Launch the NewClientWindow application, where
+	 * new users create a new account.
 	 */
-	public static void newNewClientWindow() {
+	public void newNewClientWindow() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -53,26 +56,28 @@ public class NewClientWindow {
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Hi, there! We're so happy to meet you. Please enter the following information.");
-		lblNewLabel.setBounds(27, 11, 383, 43);
-		frame.getContentPane().add(lblNewLabel);
+		// Labels
+		JLabel lblGreeting = new JLabel("Hi, there! We're so happy to meet you. Please enter the following information.");
+		lblGreeting.setBounds(27, 11, 383, 43);
+		frame.getContentPane().add(lblGreeting);
 		
-		JLabel lblNewLabel_1 = new JLabel("First Name");
-		lblNewLabel_1.setBounds(27, 65, 106, 14);
-		frame.getContentPane().add(lblNewLabel_1);
+		JLabel fnamelabel = new JLabel("First Name");
+		fnamelabel.setBounds(27, 65, 106, 14);
+		frame.getContentPane().add(fnamelabel);
 		
-		JLabel lblNewLabel_2 = new JLabel("Last Name");
-		lblNewLabel_2.setBounds(27, 99, 106, 14);
-		frame.getContentPane().add(lblNewLabel_2);
+		JLabel lnamelabel = new JLabel("Last Name");
+		lnamelabel.setBounds(27, 99, 106, 14);
+		frame.getContentPane().add(lnamelabel);
 		
-		JLabel lblNewLabel_3 = new JLabel("Username");
-		lblNewLabel_3.setBounds(27, 130, 106, 14);
-		frame.getContentPane().add(lblNewLabel_3);
+		JLabel userlabel = new JLabel("Username");
+		userlabel.setBounds(27, 130, 106, 14);
+		frame.getContentPane().add(userlabel);
 		
-		JLabel lblNewLabel_4 = new JLabel("Password");
-		lblNewLabel_4.setBounds(27, 161, 106, 14);
-		frame.getContentPane().add(lblNewLabel_4);
+		JLabel passlabel = new JLabel("Password");
+		passlabel.setBounds(27, 161, 106, 14);
+		frame.getContentPane().add(passlabel);
 		
+		// Text fields
 		firstNameField = new JTextField();
 		firstNameField.setBounds(143, 62, 174, 20);
 		frame.getContentPane().add(firstNameField);
@@ -93,33 +98,46 @@ public class NewClientWindow {
 		frame.getContentPane().add(passwordField);
 		passwordField.setColumns(10);
 		
-		JButton btnNewButton = new JButton("Create Account");
-		btnNewButton.addActionListener(new ActionListener() {
+		
+		// Finalization button to make new account
+		JButton btnCreateAcc = new JButton("Create Account");
+		btnCreateAcc.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				// All fields must be filled to make new account
 				if (firstNameField != null 
 						&& lastNameField != null 
 						&& userField != null 
 						&& passwordField != null) {
+					// Check if username has been taken
 					if (checkUser(userField.getText()) == false) {
+						// Taken
 						JOptionPane.showMessageDialog(frame, "Sorry! That username has been taken.");
 					} else {
-						SymptomTracker.addNewUser(firstNameField.getText(), 
+						// Not taken - add new user to database
+						st.addNewUser(firstNameField.getText(), 
 								lastNameField.getText(), 
 								userField.getText(), 
-								passwordField.getText());
+								passwordField.getText());								
 						JOptionPane.showMessageDialog(frame, "Success! Start to your journey towards better pain management.");
-						HomePage.newHomePage();
+						HomePage hp = new HomePage();
+						hp.newHomePage();
 						frame.dispose();
 					}
 				}
 			}
 		});
-		btnNewButton.setBounds(143, 189, 141, 23);
-		frame.getContentPane().add(btnNewButton);
+		btnCreateAcc.setBounds(143, 189, 141, 23);
+		frame.getContentPane().add(btnCreateAcc);
 	}
 	
-	public static boolean checkUser(String attemptedUser) {
-		if (SymptomTracker.getAllUsernames().contains(attemptedUser)) {
+	/**
+	 * Checks if the given username has been taken 
+	 * by another client
+	 * @param attemptedUser the username the client want to use
+	 * @return true if attemptedUser has not been used, false otherwise
+	 */
+	public boolean checkUser(String attemptedUser) {
+		if (st.getAllUsernames().contains(attemptedUser)) {
 			return false;
 		} else {
 			return true;

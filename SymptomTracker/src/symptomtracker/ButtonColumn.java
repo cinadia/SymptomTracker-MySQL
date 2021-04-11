@@ -16,6 +16,7 @@ import javax.swing.table.TableColumnModel;
 
 public class ButtonColumn implements TableCellRenderer, ActionListener, TableCellEditor {
 
+	MakeTable mt = new MakeTable();
 	private JTable table;
 	private JButton b;
 	private int col;
@@ -79,20 +80,20 @@ public class ButtonColumn implements TableCellRenderer, ActionListener, TableCel
 	
 	// Implementing ActionListener interface
 	public void actionPerformed(ActionEvent e) {
-		int s = (int)MakeTable.getValueAt(table.getSelectedRow(), 0, CURTABLE);
-		System.out.println(s);
-
-		
+		int s = (int)mt.getValueAt(table.getSelectedRow(), 0, CURTABLE);
+		System.out.println("value" + s);
 		
 		// Make symptom log table
 		if (CURTABLE == 0) {
-			EditLogsWindow.setSymptomInstance(s);
-			EditLogsWindow.newEditLogsWindow();
+			EditLogsWindow elw = new EditLogsWindow(s);
+			System.out.println("symptom instance set to " + s);
+//			EditLogsWindow.setSymptomInstance(s);
+//			EditLogsWindow.newEditLogsWindow();
 		} 
 		// Make home remedy log table
-		if (CURTABLE == 1) {
-			EditHomeRemsWindow.setHRInstance(s);
-			EditHomeRemsWindow.newEditHomeRemsWindow();
+		if (CURTABLE == 1) {			
+			EditHomeRemsWindow ehrw = new EditHomeRemsWindow(s);
+			System.out.println("hr instance set to " + s);
 		}
 		
 		
