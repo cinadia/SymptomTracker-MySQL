@@ -1,10 +1,8 @@
 package symptomtracker;
 
 import java.awt.event.WindowEvent;
-import java.sql.Date;
 import java.util.HashMap;
 import java.util.Iterator;
-
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -16,6 +14,12 @@ public class LineChart extends ApplicationFrame {
 	// LineChart object requires dictionary of the 
 	// scores corresponding with each date, 
 	// and the location the data corresponds with
+	/**
+	 * Creates a JFreeChart line chart with HashMap of scores
+	 * corresponding with each date for the given location
+	 * @param dateScores Hashmap<java.sql.Date, Integer> of dates and scores
+	 * @param location location of symptom
+	 */
 	public LineChart(HashMap<java.sql.Date, Integer> dateScores, String location) {
 		super(location + " Stats");
 		JFreeChart lineChart = ChartFactory.createLineChart(
@@ -30,8 +34,15 @@ public class LineChart extends ApplicationFrame {
 	}
 	
 	// Make dataset for line chart
+	/**
+	 * Makes a data set for the line chart with HashMap of 
+	 * dates and corresponding scores
+	 * @param dateScores HashMap<java.sql.Date, Integer> of dates and scores
+	 * @return the dataset
+	 */
 	private DefaultCategoryDataset createDataSet(HashMap<java.sql.Date, Integer> dateScores) {
 	      DefaultCategoryDataset dataset = new DefaultCategoryDataset( );
+	      // Iterator to loop through HashMap
 	      Iterator it = dateScores.entrySet().iterator();
 	      while (it.hasNext()) {
 	    	  HashMap.Entry pair = (HashMap.Entry)it.next();	        

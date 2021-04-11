@@ -2,15 +2,9 @@ package symptomtracker;
 
 import java.sql.ResultSet;
 import java.sql.Statement;
-
 import javax.swing.JFrame;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumnModel;
 
-// keep getLogs() method
 public class MakeTable extends JFrame {
 	
 	SymptomTracker st = new SymptomTracker();
@@ -80,14 +74,13 @@ public class MakeTable extends JFrame {
         return model;
 	}
 	
-	
-	/*
-	 * Gets symptom log data from symptoms_log db. 
-	 * Puts data into symData[][].
+	/**
+	 * Gets symptom log data from symptoms_log db and 
+	 * puts data into symData[][].
 	 */
 	public void getSymLogs() {
 		
-		RegAndConn raC = new RegAndConn();
+		ConnectDB raC = new ConnectDB();
 		raC.connectDB();
 		
 		Statement stat;
@@ -99,7 +92,7 @@ public class MakeTable extends JFrame {
 			// get number of logs (rows)
 			String numQuery = "SELECT COUNT(*) AS count FROM symptoms_log "
 					+ "WHERE client_id = " + "'" + st.userID + "'";
-			System.out.println(numQuery);
+			//System.out.println(numQuery);
 			
 			rs = stat.executeQuery(numQuery);
 			rs.next();
@@ -119,8 +112,8 @@ public class MakeTable extends JFrame {
 					+ "JOIN symptom_types types "
 					+ "ON log.symptom_type_id = types.symptom_type_id "
 					+ "WHERE  client_id = " + "'" + st.userID + "'";
-			System.out.println(joinQuery);
-			System.out.println("for user " + st.userID);
+//			System.out.println(joinQuery);
+//			System.out.println("for user " + st.userID);
 			rs = stat.executeQuery(joinQuery);
 			
 			int index = 0;
@@ -136,12 +129,12 @@ public class MakeTable extends JFrame {
 				index++;
 			}
 			
-			for (int i = 0; i < symData.length; i++) {
-				for (int j = 0; j < symData[0].length; j++) {
-					System.out.print(symData[i][j] + " ");
-				}
-				System.out.println();
-			}
+//			for (int i = 0; i < symData.length; i++) {
+//				for (int j = 0; j < symData[0].length; j++) {
+//					System.out.print(symData[i][j] + " ");
+//				}
+//				System.out.println();
+//			}
 			
 		} catch (Exception e){
 			e.printStackTrace();
@@ -156,17 +149,22 @@ public class MakeTable extends JFrame {
 		
 	}
 	
-	/*
-	 * Gets symptom log value
+	/** 
+	 * Get the value of the table at the given location. 
+	 * @param row the cell row
+	 * @param col the cell column
+	 * @param curTable the ID of the current table being accessed - 0 for Symptom, 1 for Home Remedy
+	 * @return the value as an Object
 	 */
 	public Object getValueAt(int row, int col, int curTable) {
 		// Symptom data table selected
 		if (curTable == 0) {
-			System.out.println("value from table is " + symData[row][col]);
+			//System.out.println("value from table is " + symData[row][col]);
 			return symData[row][col];
 		}
+		// Home Remedy data table selected
 		else if (curTable == 1) {
-			System.out.println("value from table is " + hrData[row][col]);
+			//System.out.println("value from table is " + hrData[row][col]);
 			return hrData[row][col];
 		}
 		else {
@@ -176,12 +174,12 @@ public class MakeTable extends JFrame {
 
 	
 
-	/*
-	 * Gets home remedy data from home_remedies_log db. 
-	 * Puts data into hrData[][].
+	/**
+	 * Gets home remedy log data from home_remedies db and 
+	 * puts data into hrData[][].
 	 */
 	public void getHomeRemLogs() {
-		RegAndConn raC = new RegAndConn();
+		ConnectDB raC = new ConnectDB();
 		raC.connectDB();
 		
 		Statement stat;
@@ -193,7 +191,7 @@ public class MakeTable extends JFrame {
 			// get number of logs (rows)
 			String numQuery = "SELECT COUNT(*) AS count FROM home_remedies_log "
 					+ "WHERE client_id = " + "'" + st.userID + "'";
-			System.out.println(numQuery);
+			//System.out.println(numQuery);
 			
 			rs = stat.executeQuery(numQuery);
 			rs.next();
@@ -211,8 +209,8 @@ public class MakeTable extends JFrame {
 					+ "	ON log.location_id = locations.location_id "
 					+ "WHERE client_id = " + st.userID;	
 		
-			System.out.println(joinQuery);
-			System.out.println("for user " + st.userID);
+//			System.out.println(joinQuery);
+//			System.out.println("for user " + st.userID);
 			rs = stat.executeQuery(joinQuery);
 			
 			int index = 0;
@@ -226,13 +224,13 @@ public class MakeTable extends JFrame {
 				index++;
 			}
 			
-			System.out.println("hr log data");
-			for (int i = 0; i < hrData.length; i++) {
-				for (int j = 0; j < hrData[0].length; j++) {
-					System.out.print(hrData[i][j] + " ");
-				}
-				System.out.println();
-			}
+//			System.out.println("hr log data");
+//			for (int i = 0; i < hrData.length; i++) {
+//				for (int j = 0; j < hrData[0].length; j++) {
+//					System.out.print(hrData[i][j] + " ");
+//				}
+//				System.out.println();
+//			}
 			
 		} catch (Exception e){
 			e.printStackTrace();

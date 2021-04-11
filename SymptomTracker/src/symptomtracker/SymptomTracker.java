@@ -4,12 +4,9 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
-
 import javax.swing.JLabel;
 
 public class SymptomTracker {
-	// TODO: make all vars nonstatic and make all methods nonstatic, and remove SymptomTracker. for the method calls
 	
 	 int client = 1;
 	 String location;
@@ -21,11 +18,6 @@ public class SymptomTracker {
 	 String homeRem;
 	
 	static int userID;
-	 String firstName;
-	 String lastName;
-	 String username;
-	 String password;
-	
 	
 	/**
 	 * Checks if the given text is valid.
@@ -58,55 +50,90 @@ public class SymptomTracker {
 			int score = severity*length;
 			lblCalculatedScore.setText(Integer.toString(score));
 			setScore(score);
-			System.out.println("Setting score as " + score);
+			//System.out.println("Setting score as " + score);
 		}
 	}
 	
 	// SETTERS
+	/**
+	 * Set location
+	 * @param l new location
+	 */
 	public void setLocation(String l) {
 		location = l;
-		System.out.println(location);
+		//System.out.println(location);
 	}
 	
+	/** 
+	 * Set symptom
+	 * @param s new symptom
+	 */
 	public void setSymptom(String s) {
 		symptom = s;
-		System.out.println(symptom);
+		//System.out.println(symptom);
 	}
 	
+	/**
+	 * Set date
+	 * @param d new date
+	 */
 	public void setDate(java.sql.Date d) {
 		date = d;
-		System.out.println(date);
+		//System.out.println(date);
 	}
 	
+	/** Set severity
+	 * @param s new severity
+	 */
 	public void setSeverity(int s) {
 		severity = s;
-		System.out.println(severity);
+		//System.out.println(severity);
 	}
 	
+	/**
+	 * Set length
+	 * @param l new length
+	 */
 	public void setLength(int l) {
 		length = l;
-		System.out.println(length);
+		//System.out.println(length);
 	}
 	
+	/** 
+	 * Set score
+	 * @param s new score
+	 */
 	public void setScore(int s) {
 		score = s;
-		System.out.println(score);
+		//System.out.println(score);
 	}
 	
+	/** 
+	 * Set home remedy
+	 * @param hr new home remedy
+	 */
 	public void setHomeRem(String hr) {
 		homeRem = hr;
-		System.out.println(homeRem);
+		//System.out.println(homeRem);
 	}
 	
+	/**
+	 * Set user ID
+	 * @param id current user ID
+	 */
 	public void setUserID(int id) {
 		userID = id;
-		System.out.println(userID);
+		//System.out.println(userID);
 	}
+	
+	/**
+	 * Set user's first name in database
+	 * @param first first name
+	 */
 	public void setFirstName(String first) {
 		// establish database connection
-		RegAndConn raC = new RegAndConn();
+		ConnectDB raC = new ConnectDB();
 		raC.connectDB();
-		
 		Statement stat;
 	
 		try {
@@ -115,7 +142,7 @@ public class SymptomTracker {
 			// execute query
 			String query = "UPDATE clients SET first_name = " + "'"+ first + "'"
 					+ " WHERE client_id = " + "'" + userID + "'";
-			System.out.println(query);
+			//System.out.println(query);
 			stat.executeUpdate(query);
 			
 		} catch (Exception e){
@@ -129,9 +156,14 @@ public class SymptomTracker {
 			}
 		}			
 	}
+	
+	/**
+	 * Set user's last name in database
+	 * @param last last name
+	 */
 	public void setLastName(String last) {
 		// establish database connection
-		RegAndConn raC = new RegAndConn();
+		ConnectDB raC = new ConnectDB();
 		raC.connectDB();
 		
 		Statement stat;
@@ -142,7 +174,7 @@ public class SymptomTracker {
 			// execute query
 			String query = "UPDATE clients SET last_name = " + "'"+ last + "'"
 					+ " WHERE client_id = " + "'" + userID + "'";
-			System.out.println(query);
+			//System.out.println(query);
 			stat.executeUpdate(query);
 			
 		} catch (Exception e){
@@ -157,9 +189,13 @@ public class SymptomTracker {
 		}		
 	}
 	
+	/** 
+	 * Set user's username in database
+	 * @param un user's username
+	 */
 	public void setUsername(String un) {
 		// establish database connection
-		RegAndConn raC = new RegAndConn();
+		ConnectDB raC = new ConnectDB();
 		raC.connectDB();
 		
 		Statement stat;
@@ -170,7 +206,7 @@ public class SymptomTracker {
 			// execute query
 			String query = "UPDATE clients SET client_user = " + "'"+ un + "'"
 					+ " WHERE client_id = " + "'" + userID + "'";
-			System.out.println(query);
+			//System.out.println(query);
 			stat.executeUpdate(query);
 			
 		} catch (Exception e){
@@ -185,13 +221,13 @@ public class SymptomTracker {
 		}	
 	}
 	
-	/*
+	/**
 	 * Set user's password in the database
+	 * @param pass new password
 	 */
-	//TODO: does the password instance variable update too?? does it need to?
 	public void setPassword(String pass) {
 		// establish database connection
-		RegAndConn raC = new RegAndConn();
+		ConnectDB raC = new ConnectDB();
 		raC.connectDB();
 		
 		Statement stat;
@@ -202,7 +238,7 @@ public class SymptomTracker {
 			// execute query
 			String query = "UPDATE clients SET client_pass = " + "'"+ pass + "'"
 					+ " WHERE client_id = " + "'" + userID + "'";
-			System.out.println(query);
+			//System.out.println(query);
 			stat.executeUpdate(query);
 			
 		} catch (Exception e){
@@ -218,55 +254,56 @@ public class SymptomTracker {
 	}
 	
 	// GETTERS
+	/**
+	 * @return severity
+	 */
 	public int getSeverity() {
 		return severity;
 	}
 	
+	/**
+	 * @return length
+	 */
 	public int getLength() {
 		return length;
 	}
 	
+	/**
+	 * @return user ID
+	 */
 	public int getUserID() {
 		return userID;
 	}
 	
-//	// TODO: probably dont need these next 4
-//	public String getFirstName() {
-//		return firstName;
-//	}
-//	
-//	public static String getLastName() {
-//		return lastName;
-//	}
-//	
-//	public static String getUsername() {
-//		return username;
-//	}
-//	
-//	public static String getPassword() {
-//		return password;
-//	}
-	
+	/**
+	 * 
+	 * @return symptom
+	 */
 	public String getSymptom() {
 		return symptom;
 	}
 	
+	/**
+	 * 
+	 * @return score
+	 */
 	public int getScore() {
 		return score;
 	}
 	
-	/*Returns String[] of symptom locations 
-	 * from database 
+	/**
+	 * Returns symptom locations from database
+	 * @return String[] of symptom locations
 	 */
 	public String[] getSymptomLocations() {
 		final long NUMLOC; // number of rows in symptom_locations
 		String[] locations = null;
 		
-		RegAndConn raC = new RegAndConn();
+		ConnectDB raC = new ConnectDB();
 		raC.connectDB();
 		
-		Statement stat = null;
-		ResultSet rs = null;
+		Statement stat;
+		ResultSet rs;
 	
 		try {
 			stat = raC.getConn().createStatement();
@@ -305,19 +342,20 @@ public class SymptomTracker {
 	}
 	
 	
-	/* Returns String[] of symptoms
-	 * from databases
+	/**
+	 * Returns symptoms from database
+	 * @return String[] of all symptoms 
 	 */
 	public String[] getSymptoms() {
 		final long NUMSYMS; // number of rows in symptom_locations
 		String[] symptoms = null;
 		
 		// establish database connection
-		RegAndConn raC = new RegAndConn();
+		ConnectDB raC = new ConnectDB();
 		raC.connectDB();
 		
-		Statement stat = null;
-		ResultSet rs = null;
+		Statement stat;
+		ResultSet rs;
 	
 		try {
 			stat = raC.getConn().createStatement();
@@ -354,19 +392,19 @@ public class SymptomTracker {
 		}			
 	}
 	
-	/*
-	 * Returns String[] of home remedies
-	 * from database
+	/**
+	 * Return home remedies from database
+	 * @return String[] of home remedies
 	 */
 	public String[] getHomeRems() {
 		final long NUM; // number of rows in symptom_locations
 		String[] homeRems = null;
 		
-		RegAndConn raC = new RegAndConn();
+		ConnectDB raC = new ConnectDB();
 		raC.connectDB();
 		
-		Statement stat = null;
-		ResultSet rs = null;
+		Statement stat;
+		ResultSet rs;
 	
 		try {
 			stat = raC.getConn().createStatement();
@@ -403,14 +441,14 @@ public class SymptomTracker {
 		}	
 	}
 	
-	/*
-	 * Returns ArrayList<String> of all usernames
-	 * from database
+	/**
+	 * Return all usernames from database
+	 * @return ArrayList<String> of usernames
 	 */
 	public ArrayList<String> getAllUsernames() {
 		ArrayList<String> allUsers = new ArrayList<>();
 		
-		RegAndConn raC = new RegAndConn();
+		ConnectDB raC = new ConnectDB();
 		raC.connectDB();
 		
 		Statement stat;
@@ -441,14 +479,15 @@ public class SymptomTracker {
 		}	
 	}
 	
-	/*
-	 * Returns information about current client
+	/**
+	 * Returns all information about current client
+	 * @return String[] of client information
 	 */
 	public String[] getClientInfo() {
 		String[] info = new String[4];
 		
 		// establish database connection
-		RegAndConn raC = new RegAndConn();
+		ConnectDB raC = new ConnectDB();
 		raC.connectDB();
 		
 		Statement stat;
@@ -460,7 +499,7 @@ public class SymptomTracker {
 			// execute query
 			String query = "SELECT first_name, last_name, client_user, client_pass FROM clients"
 					+ " WHERE client_id = " + "'" + userID + "'";
-			System.out.println(query);
+			//System.out.println(query);
 			rs = stat.executeQuery(query);
 			
 			rs.next();
@@ -483,17 +522,19 @@ public class SymptomTracker {
 		}			
 	}
 	
-	
-	/*
-	 * Get primary key for location
+
+	//TODO: use join instead?
+	/**
+	 * Get primary key for location 
+	 * @param loc the location whose primary key is returned
+	 * @return PK of the location
 	 */
-	//TODO: use join instead
 	public String getLocationID(String loc) {
-		RegAndConn raC = new RegAndConn();
+		ConnectDB raC = new ConnectDB();
 		raC.connectDB();
 		
-		Statement stat = null;
-		ResultSet rs = null;
+		Statement stat;
+		ResultSet rs;
 		
 		int location_id = -1;
 	
@@ -503,14 +544,14 @@ public class SymptomTracker {
 			String query = "SELECT location_id FROM symptom_locations " 
 					+ "WHERE location = " 
 					+ "'" + loc + "'";
-			System.out.println(query);
+			//System.out.println(query);
 			
 			// execute query
 			rs = stat.executeQuery(query);
 			rs.next();
 			location_id = rs.getInt("location_id");
 			
-			System.out.println(Integer.toString(location_id));
+			//System.out.println(Integer.toString(location_id));
 			return Integer.toString(location_id);
 			
 		} catch (Exception e){
@@ -526,17 +567,17 @@ public class SymptomTracker {
 		}	
 	}
 
-	
-	/*
-	 *  Get Primary Key for Symptom Type
+	//TODO: use join instead?
+	/**
+	 * Get primary key for symptom type 
+	 * @return PK of the symptom type
 	 */
-	//TODO: use join instead
 	public String getSymptomTypeID() {
-		RegAndConn raC = new RegAndConn();
+		ConnectDB raC = new ConnectDB();
 		raC.connectDB();
 		
-		Statement stat = null;
-		ResultSet rs = null;
+		Statement stat;
+		ResultSet rs;
 		
 		int symptom_type_id = -1;
 	
@@ -547,12 +588,12 @@ public class SymptomTracker {
 					+ "WHERE symptom = " 
 					+ "'" + getSymptom() + "'";
 			
-			System.out.println(query);
+			//System.out.println(query);
 			// execute query
 			rs = stat.executeQuery(query);
 			rs.next();
 			symptom_type_id = rs.getInt("symptom_type_id");
-			System.out.println(Integer.toString(symptom_type_id));
+			//System.out.println(Integer.toString(symptom_type_id));
 			
 			return Integer.toString(symptom_type_id);
 			
@@ -574,12 +615,17 @@ public class SymptomTracker {
 	 * Get Primary Key for Home Remedy
 	 */
 	//TODO: use join instead
+	/**
+	 * Get primary key for Home Remedy 
+	 * @param hRem the remedy whose primary key is returned
+	 * @return PK of the remedy
+	 */
 	public String getHomeRemID(String hRem) {
-		RegAndConn raC = new RegAndConn();
+		ConnectDB raC = new ConnectDB();
 		raC.connectDB();
 		
-		Statement stat = null;
-		ResultSet rs = null;
+		Statement stat;
+		ResultSet rs;
 		
 		int hRemID = -1;
 	
@@ -589,14 +635,14 @@ public class SymptomTracker {
 			String query = "SELECT home_remedy_id FROM home_remedies " 
 					+ "WHERE home_remedy = " 
 					+ "'" + hRem + "'";
-			System.out.println(query);
+			//System.out.println(query);
 			
 			// execute query
 			rs = stat.executeQuery(query);
 			rs.next();
 			hRemID = rs.getInt("home_remedy_id");
 			
-			System.out.println(Integer.toString(hRemID));
+			//System.out.println(Integer.toString(hRemID));
 			return Integer.toString(hRemID);
 			
 		} catch (Exception e){
@@ -616,17 +662,19 @@ public class SymptomTracker {
 	// EDITING SYMPTOM LOG Methods
 	// Called in EditLogsWindow
 	
-	/*
-	 * Get location of a symptom log corresponding to
+	/**
+	 *  Get location of a symptom log corresponding to
 	 * the given symptom_instance
+	 * @param instance the current symptom instance
+	 * @return String of the symptom instances's location
 	 */
 	public String getSymLocFromInstance(int instance) {
-		RegAndConn raC = new RegAndConn();
+		ConnectDB raC = new ConnectDB();
 		raC.connectDB();
 		
 		String location = null;
 		Statement stat;
-		ResultSet rs = null;
+		ResultSet rs;
 		
 		try {
 			stat = raC.getConn().createStatement();
@@ -638,13 +686,13 @@ public class SymptomTracker {
 					+ "WHERE symptom_instance = " 
 					+ instance;
 					 
-			System.out.println(query);
+			//System.out.println(query);
 			
 			// execute query
 			rs = stat.executeQuery(query);
 			rs.next();
 			location = rs.getString("location");
-			System.out.println(location);
+			//System.out.println(location);
 			setLocation(location);
 			return location;
 			
@@ -663,11 +711,16 @@ public class SymptomTracker {
 	}
 	
 	/*
+	 * 
+	 */
+	/**
 	 * Get symptom type of a symptom log corresponding to
 	 * the given symptom_instance
+	 * @param instance the current symptom instance
+	 * @return String of the symptom type of the symptom instance
 	 */
 	public String getSymTypeFromInstance(int instance) {
-		RegAndConn raC = new RegAndConn();
+		ConnectDB raC = new ConnectDB();
 		raC.connectDB();
 		
 		String symptom = null;
@@ -683,13 +736,13 @@ public class SymptomTracker {
 					+ "	ON log.symptom_type_id = t.symptom_type_id "
 					+ "WHERE symptom_instance = " 
 					+ instance;
-			System.out.println(query);
+			//System.out.println(query);
 			
 			// execute query
 			rs = stat.executeQuery(query);
 			rs.next();
 			symptom = rs.getString("symptom");
-			System.out.println(symptom);
+			//System.out.println(symptom);
 			setSymptom(symptom);
 
 			return symptom;
@@ -709,11 +762,16 @@ public class SymptomTracker {
 	}
 	
 	/*
-	 * Get date of a symptom log corresponding to
+	 *
+	 */
+	/**
+	 *  Get date of a symptom log corresponding to
 	 * the given symptom_instance
+	 * @param instance the current symptom instance
+	 * @return Date of the symptom instance
 	 */
 	public Date getSymDateFromInstance(int instance) {
-		RegAndConn raC = new RegAndConn();
+		ConnectDB raC = new ConnectDB();
 		raC.connectDB();
 		
 		java.sql.Date date = null;
@@ -726,13 +784,13 @@ public class SymptomTracker {
 			String query = "SELECT date FROM symptoms_log "
 					+ "WHERE symptom_instance = "
 					+ instance;
-			System.out.println(query);
+			//System.out.println(query);
 			
 			// execute query
 			rs = stat.executeQuery(query);
 			rs.next();
 			date = rs.getDate("date");
-			System.out.println(date);
+			//System.out.println(date);
 			setDate(date);
 			return date;
 			
@@ -749,12 +807,14 @@ public class SymptomTracker {
 		}	
 	}
 	
-	/*
-	 * Get severity of a symptom log corresponding to
+	/**
+	 *  Get severity of a symptom log corresponding to
 	 * the given symptom_instance
+	 * @param instance the current symptom instance
+	 * @return int of the severity of the symptom instance
 	 */
 	public int getSeverityFromInstance(int instance) {
-		RegAndConn raC = new RegAndConn();
+		ConnectDB raC = new ConnectDB();
 		raC.connectDB();
 		
 		int severity = -1;
@@ -767,13 +827,13 @@ public class SymptomTracker {
 			String query = "SELECT severity FROM symptoms_log "
 					+ "WHERE symptom_instance = "
 					+ instance;
-			System.out.println(query);
+			//System.out.println(query);
 			
 			// execute query
 			rs = stat.executeQuery(query);
 			rs.next();
 			severity = rs.getInt("severity");
-			System.out.println(severity);
+			//System.out.println(severity);
 			setSeverity(severity);
 			return severity;
 			
@@ -791,11 +851,17 @@ public class SymptomTracker {
 	}
 	
 	/*
+	 * 
+	 */
+	/**
 	 * Get duration of a symptom log corresponding to
 	 * the given symptom_instance
+	 * @param instance the current symptom instance
+	 * @return String of the duration of the symptom instance
+	 * @return
 	 */
 	public String getDurationFromInstance(int instance) {
-		RegAndConn raC = new RegAndConn();
+		ConnectDB raC = new ConnectDB();
 		raC.connectDB();
 		
 		int duration = -1;
@@ -808,13 +874,13 @@ public class SymptomTracker {
 			String query = "SELECT length FROM symptoms_log "
 					+ "WHERE symptom_instance = "
 					+ instance;
-			System.out.println(query);
+			//System.out.println(query);
 			
 			// execute query
 			rs = stat.executeQuery(query);
 			rs.next();
 			duration = rs.getInt("length");
-			System.out.println(duration);
+			//System.out.println(duration);
 			setLength(duration);
 			return Integer.toString(duration);
 			
@@ -831,13 +897,13 @@ public class SymptomTracker {
 		}	
 	}
 
-	/*
-	 * Update symptom instance.
-	 * Used when user updates a symptom log
-	 * using the EditLogsWindow
+	/**
+	 * Update symptom instance, used when user updates a 
+	 * symptom log using the EditLogsWindow
+	 * @param instance instance of the symptom being edited
 	 */
 	public void updateSymInstance(int instance) {	
-		RegAndConn raC = new RegAndConn();
+		ConnectDB raC = new ConnectDB();
 		raC.connectDB();
 		
 		Statement stat;
@@ -856,7 +922,7 @@ public class SymptomTracker {
 					+ "final_score = " + score + " "
 					+ "WHERE symptom_instance = " + instance;
 					
-			System.out.println(query);
+			//System.out.println(query);
 			
 			// execute query
 			stat.executeUpdate(query);
@@ -877,12 +943,14 @@ public class SymptomTracker {
 	// EDITING HOME REMEDY LOG Methods
 	// Called in EditHomeRemsWindow
 	
-	/*
+	/**
 	 * Get home remedy of a home remedy log corresponding to
 	 * the given hr_instance
+	 * @param instance the home remedy instance
+	 * @return String of the home remedy of the current home remedy instance
 	 */
 	public String getHomeRemFromInstance(int instance) {
-		RegAndConn raC = new RegAndConn();
+		ConnectDB raC = new ConnectDB();
 		raC.connectDB();
 		
 		String hr = null;
@@ -898,13 +966,13 @@ public class SymptomTracker {
 					+ "	ON hr.home_remedy_id = hrl.home_remedy_id "
 					+ "WHERE hr_instance = " 
 					+ instance;
-			System.out.println(query);
+			//System.out.println(query);
 			
 			// execute query
 			rs = stat.executeQuery(query);
 			rs.next();
 			hr = rs.getString("home_remedy");
-			System.out.println(hr);
+			//System.out.println(hr);
 			
 			setHomeRem(hr);
 
@@ -924,12 +992,14 @@ public class SymptomTracker {
 		}	
 	}
 	
-	/*
+	/**
 	 * Get location of a home remedy log corresponding to
 	 * the given hr_instance
+	 * @param instance the current home remedy instance
+	 * @return String of the location of the home remedy instance
 	 */
 	public String getHRLocFromInstance(int instance) {
-		RegAndConn raC = new RegAndConn();
+		ConnectDB raC = new ConnectDB();
 		raC.connectDB();
 		
 		String location = null;
@@ -944,13 +1014,13 @@ public class SymptomTracker {
 					+ "	ON hrl.location_id = loc.location_id "
 					+ "WHERE hr_instance = "
 					+ instance;
-			System.out.println(query);
+			//System.out.println(query);
 			
 			// execute query
 			rs = stat.executeQuery(query);
 			rs.next();
 			location = rs.getString("location");
-			System.out.println(location);
+			//System.out.println(location);
 			
 			setLocation(location);
 
@@ -970,12 +1040,14 @@ public class SymptomTracker {
 		}
 	}
 
-	/*
+	/**
 	 * Get date of a home remedy log corresponding to
 	 * the given hr_instance
+	 * @param instance home remedy instance (PK)
+	 * @return the date of the logged home remedy
 	 */
 	public Date getHRDateFromInstance(int instance) {
-		RegAndConn raC = new RegAndConn();
+		ConnectDB raC = new ConnectDB();
 		raC.connectDB();
 		
 		java.sql.Date date = null;
@@ -988,13 +1060,13 @@ public class SymptomTracker {
 			String query = "SELECT date FROM home_remedies_log "
 					+ "WHERE hr_instance = "
 					+ instance;
-			System.out.println(query);
+			//System.out.println(query);
 			
 			// execute query
 			rs = stat.executeQuery(query);
 			rs.next();
 			date = rs.getDate("date");
-			System.out.println(date);
+			//System.out.println(date);
 			setDate(date);
 			return date;
 			
@@ -1011,13 +1083,13 @@ public class SymptomTracker {
 		}	
 	}
 	
-	/*
-	 * Update symptom instance.
-	 * Used when user updates a symptom log
-	 * using the EditLogsWindow
+	/**
+	 * Update home remedy instance, used when user updates a 
+	 * home remedy log using the EditHomeRemsWindow
+	 * @param instance instance of the home remedy being edited
 	 */
 	public void updateHRInstance(int instance) {	
-		RegAndConn raC = new RegAndConn();
+		ConnectDB raC = new ConnectDB();
 		raC.connectDB();
 		
 		Statement stat;
@@ -1032,7 +1104,7 @@ public class SymptomTracker {
 					+ "date = " + "'" + date + "' " 
 					+ "WHERE hr_instance = " + instance;
 					
-			System.out.println(query);
+			//System.out.println(query);
 			
 			// execute query
 			stat.executeUpdate(query);
@@ -1052,16 +1124,18 @@ public class SymptomTracker {
 	
 	
 	// LOGGING NEW REMEDIES AND SYMPTOMS Methods
-	/* 
+	
+	
+	/**
 	 * Insert user-selected data into
 	 * home_remedies_log in database
 	 */
 	public void runLogHomeRem() {
-		RegAndConn raC = new RegAndConn();
+		ConnectDB raC = new ConnectDB();
 		raC.connectDB();
 		
-		Statement stat = null;
-		ResultSet rs = null;
+		Statement stat;
+		ResultSet rs;
 	
 		try {
 			stat = raC.getConn().createStatement();
@@ -1072,7 +1146,7 @@ public class SymptomTracker {
 					+ "'" + getHomeRemID(homeRem) + "', "
 					+ "'" + getLocationID(location) + "', "
 					+ "'" + date + "')"; 
-			System.out.println(query);
+			//System.out.println(query);
 			
 			// execute query
 			stat.executeUpdate(query);
@@ -1089,16 +1163,16 @@ public class SymptomTracker {
 		}	
 	}
 
-	/*
+	/**
 	 * Insert user-selected data into symptoms_log
 	 */
 	public void runLogSymptom() {
 		
-		RegAndConn raC = new RegAndConn();
+		ConnectDB raC = new ConnectDB();
 		raC.connectDB();
 		
-		Statement stat = null;
-		ResultSet rs = null;
+		Statement stat;
+		ResultSet rs;
 	
 		try {
 			stat = raC.getConn().createStatement();
@@ -1112,7 +1186,7 @@ public class SymptomTracker {
 					+ "'" + severity + "', " 
 					+ "'" + length + "', " 
 					+ "'" + score + "')"; 
-			System.out.println(query);
+			//System.out.println(query);
 			
 			// execute query
 			stat.executeUpdate(query);
@@ -1129,10 +1203,12 @@ public class SymptomTracker {
 		}	
 	}
 		
-	
-	// CLIENT METHODS
-	/*
+	/**
 	 * Add new user to client schema
+	 * @param first client's first name 
+	 * @param last client's last name
+	 * @param user client's username
+	 * @param pass client's password
 	 */
 	public void addNewUser(String first, String last, String user, String pass) {
 		setFirstName(first);
@@ -1140,11 +1216,11 @@ public class SymptomTracker {
 		setUsername(user);
 		setPassword(pass);
 		
-		RegAndConn raC = new RegAndConn();
+		ConnectDB raC = new ConnectDB();
 		raC.connectDB();
 		
-		Statement stat = null;
-		ResultSet rs = null;
+		Statement stat;
+		ResultSet rs;
 	
 		try {
 			stat = raC.getConn().createStatement();
@@ -1155,18 +1231,18 @@ public class SymptomTracker {
 					+ "'" + last + "', "
 					+ "'" + user + "', "
 					+ "'" + pass + "')"; 
-			System.out.println(query);
+			//System.out.println(query);
 			
 			// execute query
 			stat.executeUpdate(query);
 			
 			String getUser = "SELECT client_id FROM clients WHERE client_user = "
 					+ "'" + user + "'";
-			System.out.println(getUser);
+			//System.out.println(getUser);
 			rs = stat.executeQuery(getUser);
 			rs.next();
 			setUserID(rs.getInt("client_id"));
-			System.out.println("setting current client id for new user to " + getUserID());
+			//System.out.println("setting current client id for new user to " + getUserID());
 			
 		} catch (Exception e){
 			e.printStackTrace();

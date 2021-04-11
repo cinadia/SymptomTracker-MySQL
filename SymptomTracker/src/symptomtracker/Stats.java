@@ -3,12 +3,6 @@ package symptomtracker;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
-
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.JFreeChart;
-import org.jfree.data.category.DefaultCategoryDataset;
 
 public class Stats {
 
@@ -23,7 +17,7 @@ public class Stats {
 	public HashMap<String, Integer> getTodaysLocations() {
 		HashMap<String, Integer> locScore = new HashMap<>();
 				
-		RegAndConn raC = new RegAndConn();
+		ConnectDB raC = new ConnectDB();
 		raC.connectDB();
 		
 		Statement stat;
@@ -43,8 +37,8 @@ public class Stats {
 			while (rs.next()) {
 				locScore.put(rs.getString("location"), rs.getInt("SUM(final_score)"));
 			}
-			System.out.print("location and scores for today");
-			System.out.println(locScore);
+//			System.out.print("location and scores for today");
+//			System.out.println(locScore);
 			
 			return locScore;
 			
@@ -71,7 +65,7 @@ public class Stats {
 	 * @return HashMap<java.sql.Date, Integer> of date to score
 	 */
 	public HashMap<java.sql.Date, Integer> getScoresDates(java.sql.Date start, java.sql.Date end, String location_id) {
-		RegAndConn raC = new RegAndConn();
+		ConnectDB raC = new ConnectDB();
 		raC.connectDB();
 		
 		Statement stat;
@@ -87,15 +81,15 @@ public class Stats {
 					+ "' AND location_id = '" + st.getLocationID(location_id) + "'"
 					+ " GROUP BY date HAVING date BETWEEN "
 					+ "'" + start + "'" + " AND " + "'" + end + "'";
-			System.out.println(query);
+			//System.out.println(query);
 		
 			rs = stat.executeQuery(query);
 			
 			while (rs.next()) {
 				dateAndScore.put(rs.getDate("date"), rs.getInt("SUM(final_score)"));
 			}
-			System.out.print("dates and scores");
-			System.out.println(dateAndScore);
+//			System.out.print("dates and scores");
+//			System.out.println(dateAndScore);
 			
 			return dateAndScore;
 			

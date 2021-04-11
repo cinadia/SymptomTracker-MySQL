@@ -3,27 +3,20 @@ package symptomtracker;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-public class RegAndConn {
+public class ConnectDB {
 	
 	// Database login information
 	final String URL = "jdbc:mysql://localhost:3306/symptom_tracker";
 	final String USER = "root";
 	final String PASS = "ccuiMySQL";
 	
-	Connection conn = null;
+	Connection conn = null;	
 	
-	// register JDBC driver
-	public void registerDB() {
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	// get connection to database
-	// when calling method, remember to close database
+	/**
+	 * Get a connection to the database. 
+	 * Connection is closed when query is 
+	 * completed.
+	 */
 	public void connectDB() {
 		try {
 			conn = DriverManager.getConnection(URL, USER, PASS);
@@ -32,6 +25,9 @@ public class RegAndConn {
 		}
 	}
 	
+	/** 
+	 * Returns the database connection
+	 */
 	public Connection getConn() {
 		return conn;
 	}

@@ -1,7 +1,6 @@
 package symptomtracker;
 
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -16,39 +15,14 @@ import javax.swing.JButton;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-/**
- *  The very first window seen when application is run.
- *  
- */
 public class LoginWindow {
 	private JFrame frame;
 	private JTextField userField;
 	private JPasswordField passwordField;
-	
-	/**
-	 * Launches the LoginWindow application, where
-	 * all users sign in.
-	 */
-	//TODO: make newLoginWindow() nonstatic
-//	public static void newLoginWindow() {
-//		/* EventQueue.invokeLater is used if the code
-//		 *  being displayed on the GUI is in a 
-//		 *  separate thread/path.
-//		 */
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					LoginWindow window = new LoginWindow();
-//					window.frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
 
 	/**
-	 * Create the application.
+	 * Create the LoginWindow application, where
+	 * all users sign in.
 	 */
 	public LoginWindow() {
 		/* EventQueue.invokeLater is used if the code
@@ -59,9 +33,6 @@ public class LoginWindow {
 			public void run() {
 				try {
 					initialize();
-					
-//					LoginWindow window = new LoginWindow();
-//					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -159,7 +130,6 @@ public class LoginWindow {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				NewClientWindow ncw = new NewClientWindow();
-				ncw.newNewClientWindow();
 				frame.dispose();
 			}
 		});
@@ -177,7 +147,7 @@ public class LoginWindow {
 	 * @return true if password provided is correct
 	 */
 	private boolean checkPass(String user, String attemptPass) {
-		RegAndConn raC = new RegAndConn();
+		ConnectDB raC = new ConnectDB();
 		raC.connectDB();
 		
 		Statement stat;
@@ -190,7 +160,7 @@ public class LoginWindow {
 			String query = "SELECT client_pass, client_id FROM clients " 
 					+ "WHERE client_user = "
 					+ "'" + user + "'";
-			System.out.println(query);
+			//System.out.println(query);
 	        
 			rs = stat.executeQuery(query);
 			
@@ -200,8 +170,7 @@ public class LoginWindow {
 				// Set the user ID of the current client logging in
 				SymptomTracker st = new SymptomTracker();
 				st.setUserID(rs.getInt("client_id"));
-				// TODO: remove print for debugging
-				System.out.println("user id: " + st.getUserID());
+				//System.out.println("user id: " + st.getUserID());
 				return true;
 			} // Incorrect password 
 			else {
@@ -230,12 +199,11 @@ public class LoginWindow {
 	 */
 	private void login(String user, String pass) {
 		if (user != null && pass != null) {
-			System.out.println(user + pass);
+			//System.out.println(user + pass);
 			if (checkPass(user, pass) == false) {
 				JOptionPane.showMessageDialog(frame, "Incorrect username or password.");
 			} else {
 				HomePage hp = new HomePage();
-				hp.newHomePage();
 				frame.dispose();
 				
 			}

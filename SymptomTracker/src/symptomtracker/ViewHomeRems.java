@@ -4,14 +4,10 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
-
-import java.awt.BorderLayout;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
@@ -31,27 +27,19 @@ public class ViewHomeRems {
 
 
 	/**
-	 * Launch the ViewHomeRems application, where
+	 * Create the ViewHomeRems application, where
 	 * user can view and edit their logged home remedies.
 	 */
-	public void newViewHomeRems() {
+	public ViewHomeRems() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ViewHomeRems window = new ViewHomeRems();
-					window.frame.setVisible(true);
+					initialize();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
-	}
-
-	/**
-	 * Create the application.
-	 */
-	public ViewHomeRems() {
-		initialize();
 	}
 
 	/**
@@ -86,7 +74,6 @@ public class ViewHomeRems {
 				// Set new model
 				table.setModel(mt.newTableModel(HRTABLE));
 				
-				//TableColumnModel tcm = table.getColumnModel();
 				tcm.removeColumn(tcm.getColumn(0));
 				
 				table.getColumn("Edit").setCellRenderer(new ButtonColumn(table, EDITCOL, HRTABLE));
@@ -95,5 +82,7 @@ public class ViewHomeRems {
 		});
 		btnRefresh.setBounds(322, 0, 106, 23);
 		frame.getContentPane().add(btnRefresh);
+		frame.setVisible(true);
 	}
+	
 }

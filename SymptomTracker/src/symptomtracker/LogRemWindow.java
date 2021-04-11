@@ -5,7 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
@@ -18,27 +17,19 @@ public class LogRemWindow {
 	private JFrame frame;
 
 	/**
-	 * Launch the LogRemWindow application, where
+	 * Create the LogRemWindow application, where
 	 * users can log new home remedies into the database.
 	 */
-	public void newLogRem() {
+	public LogRemWindow() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					LogRemWindow window = new LogRemWindow();
-					window.frame.setVisible(true);
+					initialize();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
-	}
-
-	/**
-	 * Create the application.
-	 */
-	public LogRemWindow() {
-		initialize();
 	}
 
 	/**
@@ -119,6 +110,6 @@ public class LogRemWindow {
 		});
 		btnSave.setBounds(68, 110, 89, 23);
 		frame.getContentPane().add(btnSave);
-		
+		frame.setVisible(true);
 	}
 }

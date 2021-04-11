@@ -13,7 +13,6 @@ import javax.swing.JCheckBox;
 import javax.swing.JPasswordField;
 
 public class ProfileWindow {
-	// TODO: profile labels should update when 'save' is pressed
 	NewClientWindow ncw = new NewClientWindow();
 	SymptomTracker st = new SymptomTracker();
 	
@@ -25,33 +24,14 @@ public class ProfileWindow {
 	private String[] info = st.getClientInfo(); // holds all client information
 
 	/**
-	 * Launch the ProfileWindow application, where
+	 * Create the ProfileWindow application, where
 	 * users can view and edit their information.
-	 */
-//	public void newProfileWindow() {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					ProfileWindow window = new ProfileWindow();
-//					window.frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
-
-	/**
-	 * Create the application.
 	 */
 	public ProfileWindow() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					initialize();
-
-//					ProfileWindow window = new ProfileWindow();
-//					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

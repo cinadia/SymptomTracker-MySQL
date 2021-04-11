@@ -1,16 +1,12 @@
 package symptomtracker;
 
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.awt.event.ActionEvent;
 
 public class NewClientWindow {
@@ -24,27 +20,19 @@ public class NewClientWindow {
 	SymptomTracker st = new SymptomTracker();
 
 	/**
-	 * Launch the NewClientWindow application, where
+	 * Create the NewClientWindow application, where
 	 * new users create a new account.
 	 */
-	public void newNewClientWindow() {
+	public NewClientWindow() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					NewClientWindow window = new NewClientWindow();
-					window.frame.setVisible(true);
+					initialize();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
-	}
-
-	/**
-	 * Create the application.
-	 */
-	public NewClientWindow() {
-		initialize();
 	}
 
 	/**
@@ -120,7 +108,6 @@ public class NewClientWindow {
 								passwordField.getText());								
 						JOptionPane.showMessageDialog(frame, "Success! Start to your journey towards better pain management.");
 						HomePage hp = new HomePage();
-						hp.newHomePage();
 						frame.dispose();
 					}
 				}
@@ -128,6 +115,7 @@ public class NewClientWindow {
 		});
 		btnCreateAcc.setBounds(143, 189, 141, 23);
 		frame.getContentPane().add(btnCreateAcc);
+		frame.setVisible(true);
 	}
 	
 	/**

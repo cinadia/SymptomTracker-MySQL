@@ -18,23 +18,9 @@ public class MakeStats {
 	private static String location;
 	private static java.sql.Date startDate;
 	private static java.sql.Date endDate;
+	
 	SymptomTracker st = new SymptomTracker();
 	Stats s = new Stats();
-	
-
-	
-//	public void newMakeStatsWindow() {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					MakeStats window = new MakeStats();
-//					window.frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
 
 	/**
 	 * Launch the MakeStats application, where
@@ -46,14 +32,11 @@ public class MakeStats {
 			public void run() {
 				try {
 					initialize();
-//					MakeStats window = new MakeStats();
-//					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
-		//initialize();
 		
 	}
 
@@ -92,8 +75,7 @@ public class MakeStats {
 			            if ("date".equals(e.getPropertyName())) {
 			            	java.util.Date utilDate = (java.util.Date) e.getNewValue();
 			            	startDate = new java.sql.Date(utilDate.getTime());
-			            	// TODO remove print
-			            	System.out.println(startDate);
+			            	//System.out.println(startDate);
 			            }
 			        }
 			    });
@@ -110,7 +92,7 @@ public class MakeStats {
 			            if ("date".equals(e.getPropertyName())) {
 			            	java.util.Date utilDate = (java.util.Date) e.getNewValue();
 			            	endDate = new java.sql.Date(utilDate.getTime());
-			            	System.out.println(endDate);
+			            	//System.out.println(endDate);
 			            }
 			        }
 			    });

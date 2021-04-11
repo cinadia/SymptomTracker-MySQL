@@ -7,7 +7,6 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -18,37 +17,14 @@ import javax.swing.JButton;
 public class EditHomeRemsWindow {
 	SymptomTracker st = new SymptomTracker();
 	private JFrame frame;
-	
 	private static int hrInstance; // ID for the given home remedy log
-	
-	
-//	public void newEditHomeRemsWindow() {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					initialize();
-//					EditHomeRemsWindow window = new EditHomeRemsWindow();
-//					window.frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
-
-//	/**
-//	 * Create the application.
-//	 */
-//	public EditHomeRemsWindow() {
-//		initialize();
-//	}
 	
 	/**
 	 * Constructor to launch the EditHomeRemsWindow application,
 	 * where user can edit previously logged Home Remedies.
 	 */
 	public EditHomeRemsWindow(int instance) {
-		hrInstance = instance;		
+		hrInstance = instance;	// Set ID/PK of current Home Remedy instance	
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -84,8 +60,7 @@ public class EditHomeRemsWindow {
 		
 		// Location combo box
 		JComboBox cbLocation = new JComboBox(st.getSymptomLocations());
-		// TODO: remove print statement
-		System.out.println("sending instance " + hrInstance + " into getHRLoc method");
+		//System.out.println("sending instance " + hrInstance + " into getHRLoc method");
 		cbLocation.setSelectedItem(st.getHRLocFromInstance(hrInstance));
 		cbLocation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {

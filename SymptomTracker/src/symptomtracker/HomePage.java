@@ -2,17 +2,12 @@ package symptomtracker;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
-import java.awt.GridLayout;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.time.LocalTime;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.table.DefaultTableModel;
-
 import org.jfree.chart.ChartPanel;
 
 import javax.swing.JPanel;
@@ -22,38 +17,26 @@ import java.awt.Color;
 public class HomePage {
 
 	private JFrame frame;
-	
 	// Tracks if user is currently editing/viewing Symptoms or Home Remedies.
 	// TODO: When making Professional Remedies, must change to an integer
 	private boolean editSymptoms; 
 	PieChart pc = new PieChart();
-
-
 	Stats s = new Stats();
 
-	
 	/**
-	 * Launch the HomePage application, where
-	 * client can further select different features.
+	 * Create the HomePage application, where 
+	 * user can further select menu options.
 	 */
-	public void newHomePage() {
+	public HomePage() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					HomePage window = new HomePage();
-					window.frame.setVisible(true);
+					initialize();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
-	}
-	
-	/**
-	 * Create the application.
-	 */
-	public HomePage() {
-		initialize();
 	}
 
 	/**
@@ -91,7 +74,6 @@ public class HomePage {
 		btnLogSym.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				LogSymWindow lsw = new LogSymWindow();
-				lsw.newLogSymWindow();
 			}
 		});
 		btnLogSym.setBounds(10, 36, 162, 23);
@@ -104,7 +86,6 @@ public class HomePage {
 		btnLogHR.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				LogRemWindow lrw = new LogRemWindow();
-				lrw.newLogRem();
 			}
 		});
 		btnLogHR.setBounds(10, 70, 162, 23);
@@ -119,7 +100,6 @@ public class HomePage {
 				// Currently editing symptoms
 				editSymptoms = true;
 				ViewSymLogs vsl = new ViewSymLogs();
-				vsl.newViewSymLogs();
 			}
 		});
 		btnViewSyms.setBounds(10, 171, 162, 23);
@@ -135,7 +115,6 @@ public class HomePage {
 				// Not editing Symptoms - editing Home Remedies
 				editSymptoms = false;
 				ViewHomeRems vhr = new ViewHomeRems();
-				vhr.newViewHomeRems();
 			}
 		});
 		btnViewRems.setBounds(10, 138, 162, 23);
@@ -193,6 +172,6 @@ public class HomePage {
 		});
 		btnStatRefresh.setBounds(331, 239, 155, 23);
 		frame.getContentPane().add(btnStatRefresh);
-		
+		frame.setVisible(true);
 	}
 }

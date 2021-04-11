@@ -1,7 +1,6 @@
 package symptomtracker;
 
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -12,7 +11,6 @@ import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.sql.Date;
 import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 import com.toedter.calendar.JDateChooser;
@@ -25,29 +23,21 @@ public class LogSymWindow {
 	private JFrame frame;
 	private JTextField txtDuration;
 	private JLabel lblCalculatedScore;
-
+	
 	/**
-	 * Launch the LogSymWindow application, where
+	 * Create the LogSymWindow application, where
 	 * users can log new symptoms into the database.
 	 */
-	public void newLogSymWindow() {
+	public LogSymWindow() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					LogSymWindow window = new LogSymWindow();
-					window.frame.setVisible(true);
+					initialize();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
-	}
-	
-	/**
-	 * Create the application.
-	 */
-	public LogSymWindow() {
-		initialize();
 	}
 
 	/**
@@ -228,8 +218,7 @@ public class LogSymWindow {
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				st.runLogSymptom();
-				// TODO remove print
-				System.out.println("saved score " + st.score);
+				//System.out.println("saved score " + st.score);
 				frame.dispose();
 			}
 		});
@@ -251,6 +240,7 @@ public class LogSymWindow {
 			        }
 			    });
 		frame.getContentPane().add(dateChooser);
+		frame.setVisible(true);
 	}
 	
 	/**
@@ -265,7 +255,7 @@ public class LogSymWindow {
 			int score = severity*length;
 			lblCalculatedScore.setText(Integer.toString(score));
 			st.setScore(score);
-			System.out.println("Setting score as " + score);
+			//System.out.println("Setting score as " + score);
 	}
 	
 	}

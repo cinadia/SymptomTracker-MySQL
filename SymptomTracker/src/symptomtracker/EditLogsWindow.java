@@ -1,7 +1,6 @@
 package symptomtracker;
 
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -12,7 +11,6 @@ import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.awt.event.ActionEvent;
@@ -26,29 +24,6 @@ public class EditLogsWindow {
 	private JTextField txtFieldDur;
 	private JLabel lblCalculatedFinal;
 	private static int symptomInstance; // ID for the given symptom instance log
-	
-	/**
-	 * Launch the application.
-	 */
-//	public static void newEditLogsWindow() {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					EditLogsWindow window = new EditLogsWindow();
-//					window.frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
-	
-	/**
-	 * Create the application.
-	 */
-//	public EditLogsWindow() {
-//		initialize();
-//	}
 	
 	/**
 	 * Constructor to launch the EditLogsWindow application,
@@ -212,8 +187,8 @@ public class EditLogsWindow {
 	    // Duration text field
 		txtFieldDur = new JTextField(st.getDurationFromInstance(symptomInstance));
     	int sev = st.getSeverity();
-    	System.out.println("severity " + sev);
-    	System.out.println("duration " + st.getLength());
+//    	System.out.println("severity " + sev);
+//    	System.out.println("duration " + st.getLength());
     	if (sev != -1) {
     		int score = sev*st.getLength();
     		lblCalculatedFinal.setText(Integer.toString(score));
@@ -240,8 +215,7 @@ public class EditLogsWindow {
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				st.updateSymInstance(symptomInstance);
-				System.out.println("SAVE button was clicked.");
-				System.out.println(st.getScore());
+//				System.out.println(st.getScore());
 				JOptionPane.showMessageDialog(frame, "Updates saved! Please refresh to see changes.");
 				
 				frame.dispose();

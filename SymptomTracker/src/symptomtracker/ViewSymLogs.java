@@ -5,13 +5,10 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 
-import java.awt.BorderLayout;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -27,28 +24,20 @@ public class ViewSymLogs {
 	
 	MakeTable mt = new MakeTable();
 
-	/**
-	 * Launch the ViewSymLogs application, where
-	 * user views previously logged symptoms.
-	 */
-	public void newViewSymLogs() {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ViewSymLogs window = new ViewSymLogs();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the application.
 	 */
 	public ViewSymLogs() {
-		initialize();
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					initialize();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 
 	/**
@@ -82,7 +71,6 @@ public class ViewSymLogs {
 				// Set new table model upon refresh
 				table.setModel(mt.newTableModel(SYMTABLE));
 				
-				//TableColumnModel tcm = table.getColumnModel();
 				tcm.removeColumn(tcm.getColumn(0));
 				
 				table.getColumn("Edit").setCellRenderer(new ButtonColumn(table, EDITCOL, SYMTABLE));
@@ -91,5 +79,6 @@ public class ViewSymLogs {
 		});
 		btnRefresh.setBounds(328, 0, 110, 23);
 		frame.getContentPane().add(btnRefresh);
+		frame.setVisible(true);
 	}
 }
