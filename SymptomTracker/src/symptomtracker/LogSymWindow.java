@@ -16,6 +16,7 @@ import javax.swing.JButton;
 import com.toedter.calendar.JDateChooser;
 import java.awt.Color;
 import java.awt.Font;
+import javax.swing.UIManager;
 
 public class LogSymWindow {
 
@@ -45,7 +46,7 @@ public class LogSymWindow {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.getContentPane().setBackground(new Color(153, 204, 255));
+		frame.getContentPane().setBackground(UIManager.getColor("Panel.background"));
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
@@ -129,7 +130,7 @@ public class LogSymWindow {
 		 */
 		
 		JRadioButton rb1 = new JRadioButton("1");
-		rb1.setBackground(new Color(204, 255, 255));
+		rb1.setBackground(UIManager.getColor("RadioButtonMenuItem.background"));
 		rb1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				st.setCalculatedScore(1, lblFinalScore);
@@ -139,7 +140,7 @@ public class LogSymWindow {
 		frame.getContentPane().add(rb1);
 		
 		JRadioButton rb2 = new JRadioButton("2");
-		rb2.setBackground(new Color(204, 255, 255));
+		rb2.setBackground(UIManager.getColor("RadioButtonMenuItem.background"));
 		rb2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				st.setCalculatedScore(2, lblFinalScore);			
@@ -149,7 +150,7 @@ public class LogSymWindow {
 		frame.getContentPane().add(rb2);
 		
 		JRadioButton rb3 = new JRadioButton("3");
-		rb3.setBackground(new Color(204, 255, 255));
+		rb3.setBackground(UIManager.getColor("RadioButtonMenuItem.background"));
 		rb3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				st.setCalculatedScore(3, lblFinalScore);			
@@ -159,7 +160,7 @@ public class LogSymWindow {
 		frame.getContentPane().add(rb3);
 		
 		JRadioButton rb4 = new JRadioButton("4");
-		rb4.setBackground(new Color(204, 255, 255));
+		rb4.setBackground(UIManager.getColor("RadioButtonMenuItem.background"));
 		rb4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				st.setCalculatedScore(4, lblFinalScore);			
@@ -169,7 +170,7 @@ public class LogSymWindow {
 		frame.getContentPane().add(rb4);
 		
 		JRadioButton rb5 = new JRadioButton("5");
-		rb5.setBackground(new Color(204, 255, 255));
+		rb5.setBackground(UIManager.getColor("RadioButtonMenuItem.background"));
 		rb5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				st.setCalculatedScore(1, lblFinalScore);			
@@ -214,7 +215,7 @@ public class LogSymWindow {
 		// Runs the runLogSymptom() method in SymptomTracker
 		JButton btnSave = new JButton("SAVE");
 		btnSave.setFont(new Font("Eras Demi ITC", Font.PLAIN, 11));
-		btnSave.setBackground(new Color(204, 255, 255));
+		btnSave.setBackground(UIManager.getColor("Button.background"));
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				st.runLogSymptom();
